@@ -7,6 +7,7 @@ use core\Core;
 use models\Category;
 use models\Product;
 use models\User;
+use utils\Photo;
 
 
 class CategoryController extends Controller
@@ -31,7 +32,8 @@ class CategoryController extends Controller
                 $errors['name'] = 'The name of the category is not specified';
 
             if (empty($errors)) {
-                Category::addCategory($_POST['name'], $_FILES['file']['tmp_name']);
+                $fileName = Photo::loadPhoto('category', $_FILES['file']['tmp_name']);
+                Category::addCategory($_POST['name'], $fileName);
                 return $this->redirect('/category/index');
             } else {
                 $model = $_POST;
@@ -55,6 +57,7 @@ class CategoryController extends Controller
                 if(is_file($filePath)) {
                     unlink($filePath);
                 }
+                Photo::deletePhoto('category', $id);
                 Category::deleteCategory($id);
                 return $this->redirect('/category/index');
                 
@@ -80,7 +83,7 @@ class CategoryController extends Controller
                 if (empty($errors)) {
                     Category::updateCategory($id, $_POST['name']);
                     if(!empty($_FILES['file']['tmp_name']))
-                        Category::changePhoto($id, $_FILES['file']['tmp_name']);
+                        Photo::changePhoto('category', $id, $_FILES['file']['tmp_name']);
                     return $this->redirect('/category/index');
                 } else {
                     $model = $_POST;

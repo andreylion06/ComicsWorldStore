@@ -2,22 +2,16 @@
 namespace models;
 
 use core\Core;
-use core\Utils;
+use utils\Filter;
 
 class Product
 {
     protected static $tableName = 'product';
-    public static function addProduct($row) {
-        do {
-            $fileName = uniqid().'.jpg';
-            $newPath = "files/product/{$fileName}";
-        } while(file_exists($newPath));
-
+    public static function addProduct($row, $filePath) {
         $fieldaslist = ['name', 'photo', 'category_id', 'price',
             'count', 'short_description', 'description', 'visible'];
-        $row = Utils::filterArray($row, $fieldaslist);
-        $row += ['photo' => $fileName];
-        move_uploaded_file($_FILES['file']['tmp_name'], $newPath);
+        $row = Filter::filterArray($row, $fieldaslist);
+        $row += ['photo' => $filePath];
         Core::getInstance()->db->insert(self::$tableName, $row);
     }
 
@@ -29,7 +23,7 @@ class Product
     public static function updateProduct($id, $row) {
         $fieldaslist = ['name', 'category_id', 'price',
             'count', 'short_description', 'description', 'visible'];
-        $row = Utils::filterArray($row, $fieldaslist);
+        $row = Filter::filterArray($row, $fieldaslist);
         Core::getInstance()->db->update(self::$tableName, $row, [
            'id' => $id
         ]);

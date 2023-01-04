@@ -1,10 +1,10 @@
 <?php
 
 
-namespace core;
+namespace utils;
 
 
-class Utils
+class Filter
 {
     public static function filterArray($array, $fieldsList) {
         $newArray = [];

@@ -9,6 +9,7 @@ use core\Core;
 use models\Category;
 use models\Product;
 use models\User;
+use utils\Photo;
 
 class ProductController extends Controller
 {
@@ -37,7 +38,8 @@ class ProductController extends Controller
                 $errors['count'] = 'The number of products is incorrectly specified';
 
             if (empty($errors)) {
-                Product::addProduct($_POST);
+                $fileName = Photo::loadPhoto('product', $_FILES['file']['tmp_name']);
+                Product::addProduct($_POST, $fileName);
                 return $this->redirect('/product');
             } else {
                 $model = $_POST;
@@ -59,11 +61,7 @@ class ProductController extends Controller
         if(!User::isAdmin())
             return $this->error(403);
         if($id > 0) {
-            $category = Product::getProductById($id);
-            $filePath = 'files/product/'.$category['photo'];
-            if(is_file($filePath)) {
-                unlink($filePath);
-            }
+            Photo::deletePhoto('product', $id);
             Product::deleteProduct($id);
             return $this->redirect('/product/index');
         } else

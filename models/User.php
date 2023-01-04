@@ -20,7 +20,7 @@ class User
         return md5($password);
     }
 //    public static function updateUser($id, $updatesArray) {
-//        $updatesArray = Utils::filterArray($updatesArray, ['firstname', 'lastname']);
+//        $updatesArray = Filter::filterArray($updatesArray, ['firstname', 'lastname']);
 //        \core\Core::getInstance()->db->update(self::$tableName,
 //        $updatesArray, [
 //            'id' => $id
