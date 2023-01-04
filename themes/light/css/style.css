@@ -1,0 +1,56 @@
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 1 auto;
+}
+
+a {
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.form-signin {
+    max-width: 350px;
+}
+
+.categories-list .card {
+    transition-duration: 0.5s;
+}
+
+.categories-list a {
+    text-decoration: none;
+}
+
+.categories-list .card:hover {
+     background-color: antiquewhite;
+    transform: scale(1.1);
+}
+
+/*.admin-label {*/
+/*    color: gold !important;*/
+/*}*/
+
+.admin-label::after {
+    content: 'ad.';
+    font-size: 10px;
+    color: gold;
+    position: relative;
+    top: -10px;
+    left: 2px;
+}

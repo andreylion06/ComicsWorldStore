@@ -1,0 +1,2 @@
+<h1>Головна сторінка</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque aut dolor dolorem in itaque quo, velit! Consectetur eius maxime nobis obcaecati odit omnis perspiciatis, quia rem. Aliquid illum, sint.</p>
