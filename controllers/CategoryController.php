@@ -4,7 +4,7 @@
 namespace controllers;
 use \core\Controller;
 use core\Core;
-use models\Category;
+use models\DataTable;
 use models\Product;
 use models\User;
 use utils\Photo;
@@ -12,8 +12,9 @@ use utils\Photo;
 
 class CategoryController extends Controller
 {
+    public static $tableName = 'category';
     public function indexAction() {
-        $rows = Category::getCategories();
+        $rows = DataTable::getItem(self::$tableName);
         $viewPath = null;
         if(User::isAdmin())
             $viewPath = "views/category/index-admin.php";
@@ -33,7 +34,7 @@ class CategoryController extends Controller
 
             if (empty($errors)) {
                 $fileName = Photo::loadPhoto('category', $_FILES['file']['tmp_name']);
-                Category::addCategory($_POST['name'], $fileName);
+                DataTable::addItem(self::$tableName, $_POST['name'], $fileName);
                 return $this->redirect('/category/index');
             } else {
                 $model = $_POST;
@@ -51,14 +52,14 @@ class CategoryController extends Controller
         if(!User::isAdmin())
             return $this->error(403);
         if($id > 0) {
-            $category = Category::getCategoryById($id);
+            $category = DataTable::getItemById(self::$tableName, $id);
             if($yes) {
                 $filePath = 'files/category/'.$category['photo'];
                 if(is_file($filePath)) {
                     unlink($filePath);
                 }
                 Photo::deletePhoto('category', $id);
-                Category::deleteCategory($id);
+                DataTable::deleteItem(self::$tableName, $id);
                 return $this->redirect('/category/index');
                 
             }
@@ -73,7 +74,7 @@ class CategoryController extends Controller
         if(!User::isAdmin())
             return $this->error(403);
         if($id > 0) {
-            $category = Category::getCategoryById($id);
+            $category = DataTable::getItemById(self::$tableName, $id);
             if(Core::getInstance()->requestMethod === 'POST') {
                 $errors = [];
                 $_POST['name'] = trim($_POST['name']);
@@ -81,7 +82,7 @@ class CategoryController extends Controller
                     $errors['name'] = 'The name of the category is not specified';
 
                 if (empty($errors)) {
-                    Category::updateCategory($id, $_POST['name']);
+                    DataTable::updateItem(self::$tableName, $id, $_POST['name']);
                     if(!empty($_FILES['file']['tmp_name']))
                         Photo::changePhoto('category', $id, $_FILES['file']['tmp_name']);
                     return $this->redirect('/category/index');
@@ -102,7 +103,7 @@ class CategoryController extends Controller
     }
     public function viewAction($params) {
         $id = intval($params[0]);
-        $category = Category::getCategoryById($id);
+        $category = DataTable::getItemById(self::$tableName, $id);
         $products = Product::getProductsInCategory($id);
         return $this->render(null, [
             'category' => $category,

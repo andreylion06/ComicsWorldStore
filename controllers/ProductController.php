@@ -6,7 +6,7 @@ namespace controllers;
 
 use core\Controller;
 use core\Core;
-use models\Category;
+use models\DataTable;
 use models\Product;
 use models\User;
 use utils\Photo;
@@ -24,7 +24,7 @@ class ProductController extends Controller
         $category_id = intval($params[0]);
         if (empty($category_id))
             $category_id = null;
-        $categoriesList = Category::getCategories();
+        $categoriesList = DataTable::getItem();
         if (Core::getInstance()->requestMethod === 'POST') {
             $errors = [];
             $_POST['name'] = trim($_POST['name']);
