@@ -2,7 +2,7 @@
 /** @var array $rows */
 use models\User;
 ?>
-<h2>Список категорій</h2>
+<h2>List of categories</h2>
 <?php if(User::isAdmin()) : ?>
 <div class="mb-3">
     <a href="/category/add" class="btn btn-success">Add a category</a>
