@@ -8,7 +8,7 @@ class Product
 {
     protected static $tableName = 'product';
     public static function addProduct($row, $filePath) {
-        $fieldaslist = ['name', 'photo', 'category_id', 'price',
+        $fieldaslist = ['name', 'photo', 'category_id', 'theme_id', 'price',
             'count', 'short_description', 'description', 'visible'];
         $row = Filter::filterArray($row, $fieldaslist);
         $row += ['photo' => $filePath];
@@ -41,10 +41,10 @@ class Product
         else
             return null;
     }
-    public static function getProductsInCategory($category_id) {
+    public static function getProductsIn($tableName, $id) {
         $rows = Core::getInstance()->db->select(self::$tableName, '*', [
-            'category_id' => $category_id
+            $tableName.'_id' => $id
         ]);
-        return $rows;
+        return array_reverse($rows);
     }
 }

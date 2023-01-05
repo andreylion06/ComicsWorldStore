@@ -29,22 +29,18 @@ a {
     max-width: 350px;
 }
 
-.categories-list .card {
+.data-list .card {
     transition-duration: 0.5s;
 }
 
-.categories-list a {
+.data-list a {
     text-decoration: none;
 }
 
-.categories-list .card:hover {
+.data-list .card:hover {
      background-color: antiquewhite;
     transform: scale(1.1);
 }
-
-/*.admin-label {*/
-/*    color: gold !important;*/
-/*}*/
 
 .admin-label::after {
     content: 'ad.';

@@ -1,12 +1,12 @@
 <?php
-/** @var array $tableName */
+/** @var array $moduleName */
 /** @var array $row */
 /** @var array $model */
 /** @var array $errors */
 
-$lTableName = ucfirst($tableName);
+$lTableName = ucfirst($moduleName);
 ?>
-<h2>Editing a <?=$tableName?></h2>
+<h2>Editing a <?=$moduleName?></h2>
 <form action="" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="name" class="form-label"><?=$lTableName?> name</label>
@@ -16,7 +16,7 @@ $lTableName = ucfirst($tableName);
         <?php endif; ?>
     </div>
     <div class="col-3">
-        <?php $filePath = 'files/'.$tableName.'/'.$row['photo'];?>
+        <?php $filePath = 'files/'.$moduleName.'/'.$row['photo'];?>
         <?php if (is_file($filePath)) : ?>
             <img src="/<?=$filePath?>" class="card-img-top img-thumbnail" alt="...">
         <?php else : ?>

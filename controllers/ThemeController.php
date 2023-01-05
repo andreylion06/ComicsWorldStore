@@ -6,9 +6,9 @@ use \core\Controller;
 use core\Core;
 
 
-class SubjectController extends Controller
+class ThemeController extends Controller
 {
-    public static $tableName = 'subject';
+    public static $tableName = 'theme';
     public function indexAction() {
         return DataController::indexAction($this, self::$tableName);
     }

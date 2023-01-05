@@ -77,13 +77,31 @@ else
                             <li>
                                 <a href="/category" class="nav-link text-white">
                                     <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                                    Категорії
+                                    Categories
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/theme" class="nav-link text-white">
+                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
+                                    Themes
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/personage" class="nav-link text-white">
+                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
+                                    Personages
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/brand" class="nav-link text-white">
+                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
+                                    Brands
                                 </a>
                             </li>
                             <li>
                                 <a href="/product" class="nav-link text-white">
                                     <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                                    Товари
+                                    Products
                                 </a>
                             </li>
                             <li>

@@ -1,11 +1,11 @@
 <?php
-/** @var array $tableName */
+/** @var array $moduleName */
 /** @var array $row */
 ?>
 
 <div class="alert alert-danger" role="alert">
-    <h4 class="alert-heading">Delete <?=$tableName?> "<?=$row['name']?>"?</h4>
-    <p>After removing a <?=$tableName?>, all products in this <?=$tableName?> will fall into the standard <?=$tableName?> <b>"Undefined"</b></p>
+    <h4 class="alert-heading">Delete <?=$moduleName?> "<?=$row['name']?>"?</h4>
+    <p>After removing a <?=$moduleName?>, all products in this <?=$moduleName?> will fall into the standard <?=$moduleName?> <b>"Undefined"</b></p>
     <hr>
     <p class="mb-0">
         <a href="/category/delete/<?=$row['id']?>/yes" class="btn btn-danger">Delete</a>

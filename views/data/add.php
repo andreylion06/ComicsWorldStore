@@ -1,12 +1,12 @@
 <?php
-/** @var string $tableName */
+/** @var string $moduleName */
 /** @var array $model */
 /** @var array $errors */
 
-$lTableName = ucfirst($tableName);
+$lTableName = ucfirst($moduleName);
 ?>
 
-<h2>Add <?=$tableName?></h2>
+<h2>Add <?=$moduleName?></h2>
 <form action="" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="name" class="form-label"><?=$lTableName?> name</label>
@@ -16,7 +16,7 @@ $lTableName = ucfirst($tableName);
         <?php endif; ?>
     </div>
     <div class="mb-3">
-        <label for="file" class="form-label">File with photo for <?=$tableName?></label>
+        <label for="file" class="form-label">File with photo for <?=$moduleName?></label>
         <input type="file" class="form-control" name="file" id="file" accept="image/jpeg"/>
     </div>
     <div>

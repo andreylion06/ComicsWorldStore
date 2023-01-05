@@ -12,18 +12,19 @@ use utils\Photo;
 
 class DataController extends Controller
 {
-    public static function indexAction($controller, $tableName) {
-        $rows = DataTable::getItem($tableName);
+    public static function indexAction($controller, $moduleName) {
+        $rows = DataTable::getItem($moduleName);
         if(User::isAdmin())
-            $viewPath = "views/{$tableName}/index-admin.php";
+            $viewPath = "views/{$moduleName}/index-admin.php";
         else
-            $viewPath = "views/{$tableName}/index.php";
+            $viewPath = "views/{$moduleName}/index.php";
 
         return $controller->render($viewPath, [
+            'moduleName' => $moduleName,
             'rows' => $rows
         ]);
     }
-    public static function addAction($controller, $tableName)
+    public static function addAction($controller, $moduleName)
     {
         if (!User::isAdmin())
             return $controller->error(403);
@@ -31,65 +32,66 @@ class DataController extends Controller
             $errors = [];
             $_POST['name'] = trim($_POST['name']);
             if (empty($_POST['name']))
-                $errors['name'] = "The name of the {$tableName} is not specified";
+                $errors['name'] = "The name of the {$moduleName} is not specified";
             if (empty($errors)) {
-                $fileName = Photo::loadPhoto($tableName, $_FILES['file']['tmp_name']);
-                DataTable::addItem($tableName, $_POST['name'], $fileName);
-                return $controller->redirect("/{$tableName}/index");
+                $fileName = Photo::loadPhoto($moduleName, $_FILES['file']['tmp_name']);
+                DataTable::addItem($moduleName, $_POST['name'], $fileName);
+                return $controller->redirect("/{$moduleName}/index");
             } else {
                 $model = $_POST;
-                return $controller->render("views/{$tableName}/add.php", [
+                return $controller->render("views/{$moduleName}/add.php", [
+                    'moduleName' => $moduleName,
                     'errors' => $errors,
                     'model' => $model
                 ]);
             }
         }
         return $controller->render(null, [
-            'tableName' => $tableName
+            'moduleName' => $moduleName
         ]);
     }
-    public static function deleteAction($controller, $tableName, $id, $answer) {
+    public static function deleteAction($controller, $moduleName, $id, $answer) {
         if(!User::isAdmin())
             return $controller->error(403);
         if($id > 0) {
-            $row = DataTable::getItemById($tableName, $id);
+            $row = DataTable::getItemById($moduleName, $id);
             if($answer) {
-                $filePath = "files/{$tableName}/{$row['photo']}";
+                $filePath = "files/{$moduleName}/{$row['photo']}";
                 if(is_file($filePath)) {
                     unlink($filePath);
                 }
-                Photo::deletePhoto($tableName, $id);
-                DataTable::deleteItem($tableName, $id);
-                return $controller->redirect("/{$tableName}/index");
+                Photo::deletePhoto($moduleName, $id);
+                DataTable::deleteItem($moduleName, $id);
+                return $controller->redirect("/{$moduleName}/index");
                 
             }
             return $controller->render(null, [
-                'tableName' => $tableName,
+                'moduleName' => $moduleName,
                 'row' => $row
             ]);
         } else
             return $controller->error(403);
     }
-    public static function editAction($controller, $tableName, $id) {
+    public static function editAction($controller, $moduleName, $id) {
         if(!User::isAdmin())
             return $controller->error(403);
         if($id > 0) {
-            $row = DataTable::getItemById($tableName, $id);
+            $row = DataTable::getItemById($moduleName, $id);
             if(Core::getInstance()->requestMethod === 'POST') {
                 $errors = [];
                 $_POST['name'] = trim($_POST['name']);
                 if (empty($_POST['name']))
-                    $errors['name'] = "The name of the {$tableName} is not specified";
+                    $errors['name'] = "The name of the {$moduleName} is not specified";
 
                 if (empty($errors)) {
-                    DataTable::updateItem($tableName, $id, $_POST['name']);
+                    DataTable::updateItem($moduleName, $id, $_POST['name']);
                     if(!empty($_FILES['file']['tmp_name']))
-                        Photo::changePhoto($tableName, $id, $_FILES['file']['tmp_name']);
-                    return $controller->redirect("/{$tableName}/index");
+                        Photo::changePhoto($moduleName, $id, $_FILES['file']['tmp_name']);
+                    return $controller->redirect("/{$moduleName}/index");
                 } else {
                     $model = $_POST;
                     return $controller->render(null, [
-                        'tableName' => $tableName,
+                        'moduleName' => $moduleName,
                         'errors' => $errors,
                         'model' => $model,
                         'row' => $row
@@ -97,19 +99,20 @@ class DataController extends Controller
                 }
             }
             return $controller->render(null, [
-                'tableName' => $tableName,
+                'moduleName' => $moduleName,
                 'row' => $row
             ]);
         } else
             return $controller->error(403);
     }
-    public static function viewAction($controller, $tableName, $id) {
-        $row = DataTable::getItemById($tableName, $id);
+    public static function viewAction($controller, $moduleName, $id) {
+        $row = DataTable::getItemById($moduleName, $id);
         $className = 'Product';
-        $methodName = 'getProductsIn'.ucfirst($tableName);
-        $products = call_user_func('\\models\\'.$className.'::'.$methodName, $id);
+        $methodName = 'getProductsIn';
+        $products = call_user_func('\\models\\'.$className.'::'.$methodName, $moduleName, $id);
         return $controller->render(null, [
-            $tableName => $row,
+            'moduleName' => $moduleName,
+            'row' => $row,
             'products' => $products
         ]);
     }

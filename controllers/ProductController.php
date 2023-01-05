@@ -21,10 +21,12 @@ class ProductController extends Controller
         return $this->render();
     }
     public function addAction($params) {
-        $category_id = intval($params[0]);
-        if (empty($category_id))
-            $category_id = null;
-        $categoriesList = DataTable::getItem();
+        $moduleName = $params[0];
+        $module_id = intval($params[1]);
+        if (empty($module_id))
+            $module_id = null;
+        $categoriesList = DataTable::getItem('category');
+        $themesList = DataTable::getItem('theme');
         if (Core::getInstance()->requestMethod === 'POST') {
             $errors = [];
             $_POST['name'] = trim($_POST['name']);
@@ -32,6 +34,8 @@ class ProductController extends Controller
                 $errors['name'] = 'The name of the product is not specified';
             if (empty($_POST['category_id']))
                 $errors['category_id'] = 'Category not selected';
+            if (empty($_POST['theme_id']))
+                $errors['theme_id'] = 'Theme not selected';
             if ($_POST['price'] <= 0)
                 $errors['price'] = 'The price is incorrectly set';
             if ($_POST['count'] <= 0)
@@ -47,13 +51,15 @@ class ProductController extends Controller
                     'errors' => $errors,
                     'model' => $model,
                     'categories' => $categoriesList,
-                    'category_id' => $category_id
+                    'themes' => $themesList,
+                    $moduleName.'_id' => $module_id
                 ]);
             }
         }
         return $this->render(null, [
             'categories' => $categoriesList,
-            'category_id' => $category_id
+            'themes' => $themesList,
+            $moduleName.'_id' => $module_id
         ]);
     }
     public function deleteAction($params) {

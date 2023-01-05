@@ -29,6 +29,9 @@ class DB
         $res = $this->pdo->prepare(
             "SELECT {$fieldsListString} FROM {$tableName} {$wherePartString}");
         $res->execute($conditionArray);
+//        var_dump($res);
+//        var_dump($res->fetchAll(\PDO::FETCH_ASSOC));
+//        die;
         return $res->fetchAll(\PDO::FETCH_ASSOC);
     }
 

@@ -1,37 +1,33 @@
 <?php
-
+/** @var string $moduleName */
+/** @var array $row */
 /** @var array $products */
 
 use models\User;
+
 ?>
-
-
-<h1 class="h3 mb-3 fw-normal text-center">Список товарів</h1>
+<h1><?=$row['name']?></h1>
 <?php if(User::isAdmin()) : ?>
     <div class="mb-3">
-        <a href="/product/add" class="btn btn-success">Додати товар</a>
+        <a href="/product/add/<?=$moduleName?>/<?=$row['id']?>" class="btn btn-success">Add product</a>
     </div>
 <?php endif; ?>
-
 <div class="row row-cols-1 row-cols-md-4 g-4 data-list">
-    <?php foreach ($products as $row) : ?>
+    <?php foreach ($products as $product) : ?>
         <div class="col">
-            <a href="/product/view/<?=$row['id'] ?>" class="card-link">
+            <a href="/product/view/<?=$product['id'] ?>" class="card-link">
                 <div class="card">
-                    <?php $filePath = 'files/product/'.$row['photo'];?>
+                    <?php $filePath = 'files/product/'.$product['photo'];?>
                     <?php if (is_file($filePath)) : ?>
                         <img src="/<?=$filePath?>" class="card-img-top" alt="...">
                     <?php else : ?>
                         <img src="/static/images/no-image.jpg" class="card-img-top" alt="...">
                     <?php endif; ?>
                     <div class="card-body">
-                        <h5 class="card-title"><?=$row['name']?></h5>
+                        <h5 class="card-title"><?=$product['name']?></h5>
                     </div>
                     <div class="card-body">
-                        <?php if(User::isAdmin()) : ?>
-                            <a href="/product/edit/<?=$row['id'] ?>" class="btn btn-primary">Edit</a>
-                            <a href="/product/delete/<?=$row['id'] ?>" class="btn btn-danger">Delete</a>
-                        <?php endif; ?>
+
                     </div>
                 </div>
             </a>

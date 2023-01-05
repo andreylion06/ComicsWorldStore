@@ -1,24 +1,23 @@
 <?php
-
-/** @var array $products */
+/** @var string $moduleName */
+/** @var array $rows */
 
 use models\User;
+
+$lTableName = ucfirst($moduleName);
 ?>
-
-
-<h1 class="h3 mb-3 fw-normal text-center">Список товарів</h1>
+<h2><?=$lTableName?> list</h2>
 <?php if(User::isAdmin()) : ?>
-    <div class="mb-3">
-        <a href="/product/add" class="btn btn-success">Додати товар</a>
-    </div>
+<div class="mb-3">
+    <a href="/<?=$moduleName?>/add" class="btn btn-success">Add a <?=$moduleName?></a>
+</div>
 <?php endif; ?>
-
 <div class="row row-cols-1 row-cols-md-4 g-4 data-list">
-    <?php foreach ($products as $row) : ?>
+    <?php foreach ($rows as $row) : ?>
         <div class="col">
-            <a href="/product/view/<?=$row['id'] ?>" class="card-link">
+            <a href="/<?=$moduleName?>/view/<?=$row['id'] ?>" class="card-link">
                 <div class="card">
-                    <?php $filePath = 'files/product/'.$row['photo'];?>
+                    <?php $filePath = 'files/'.$moduleName.'/'.$row['photo'];?>
                     <?php if (is_file($filePath)) : ?>
                         <img src="/<?=$filePath?>" class="card-img-top" alt="...">
                     <?php else : ?>
@@ -28,10 +27,8 @@ use models\User;
                         <h5 class="card-title"><?=$row['name']?></h5>
                     </div>
                     <div class="card-body">
-                        <?php if(User::isAdmin()) : ?>
-                            <a href="/product/edit/<?=$row['id'] ?>" class="btn btn-primary">Edit</a>
-                            <a href="/product/delete/<?=$row['id'] ?>" class="btn btn-danger">Delete</a>
-                        <?php endif; ?>
+                        <a href="/<?=$moduleName?>/edit/<?=$row['id'] ?>" class="btn btn-primary">Edit</a>
+                        <a href="/<?=$moduleName?>/delete/<?=$row['id'] ?>" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </a>
