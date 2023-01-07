@@ -5,7 +5,7 @@
 $lTableName = ucfirst($moduleName);
 ?>
 
-<h2><?=$lTableName?> list</h2>
+<h1 class="h3 mb-3 fw-normal text-center"><?=$lTableName?> list</h1>
 <div class="row row-cols-1 row-cols-md-4 g-4 data-list">
     <?php foreach ($rows as $row) : ?>
         <div class="col">

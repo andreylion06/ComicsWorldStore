@@ -4,6 +4,7 @@
 /** @var string $siteName */
 
 use models\User;
+use models\DataTable;
 if (User::isUserAuthenticated())
     $user = User::getCurrentAuthenticatedUser();
 else
@@ -47,97 +48,113 @@ else
         </svg>
 
 
-        <header>
-            <div class="px-3 py-2 text-bg-dark">
-                <div class="container">
-                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                        <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-                        </a>
+<!--        <header>-->
+<!--            <div class="px-3 py-2 text-bg-dark">-->
+<!--                <div class="container">-->
+<!--                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">-->
+<!--                        <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">-->
+<!--                            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>-->
+<!--                        </a>-->
+<!---->
+<!--                        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">-->
+<!--                            <li>-->
+<!--                                <a href="#" class="nav-link text-secondary">-->
+<!--                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>-->
+<!--                                    Головна-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/category" class="nav-link text-white">-->
+<!--                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>-->
+<!--                                    Categories-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/theme" class="nav-link text-white">-->
+<!--                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>-->
+<!--                                    Themes-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/personage" class="nav-link text-white">-->
+<!--                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>-->
+<!--                                    Personages-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/brand" class="nav-link text-white">-->
+<!--                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>-->
+<!--                                    Brands-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/product" class="nav-link text-white">-->
+<!--                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>-->
+<!--                                    Products-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="/basket" class="nav-link text-white">-->
+<!--                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>-->
+<!--                                    Кошик-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="px-3 py-2 border-bottom mb-3">-->
+<!--                <div class="container d-flex flex-wrap justify-content-center">-->
+<!--                    <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">-->
+<!--                        --><?php //if (User::isUserAuthenticated()) : ?>
+<!--                        <input type="search" class="form-control" placeholder="Пошук" aria-label="Search">-->
+<!--                        --><?php //endif; ?>
+<!--                    </form>-->
+<!---->
+<!--                    <div class="text-end">-->
+<!--                        --><?php //if (User::isUserAuthenticated()) : ?>
+<!--                            <a href="" class="btn btn-light text-dark me-2 --><?php //if (User::isAdmin()) echo 'admin-label'?><!--">Hello, --><?//=$user['firstname']?><!--</a>-->
+<!--                            <a href="/user/logout" class="btn btn-light text-dark me-2">Вийти</a>-->
+<!--                        --><?php //else : ?>
+<!--                            <a href="/user/login" class="btn btn-light text-dark me-2">Увійти</a>-->
+<!--                            <a href="/user/register" class="btn btn-primary">Реєстрація</a>-->
+<!--                        --><?php //endif; ?>
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </header>-->
 
-                        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                            <li>
-                                <a href="#" class="nav-link text-secondary">
-                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
-                                    Головна
-                                </a>
-                            </li>
-    <!--                        <li>-->
-    <!--                            <a href="#" class="nav-link text-white">-->
-    <!--                                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"/></svg>-->
-    <!--                                Dashboard-->
-    <!--                            </a>-->
-    <!--                        </li>-->
-    <!--                        <li>-->
-    <!--                            <a href="#" class="nav-link text-white">-->
-    <!--                                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>-->
-    <!--                                Orders-->
-    <!--                            </a>-->
-    <!--                        </li>-->
-                            <li>
-                                <a href="/category" class="nav-link text-white">
-                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                                    Categories
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/theme" class="nav-link text-white">
-                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                                    Themes
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/personage" class="nav-link text-white">
-                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                                    Personages
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/brand" class="nav-link text-white">
-                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                                    Brands
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/product" class="nav-link text-white">
-                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                                    Products
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/basket" class="nav-link text-white">
-                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                                    Кошик
-                                </a>
-                            </li>
-    <!--                        <li>-->
-    <!--                            <a href="#" class="nav-link text-white">-->
-    <!--                                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>-->
-    <!--                                Customers-->
-    <!--                            </a>-->
-    <!--                        </li>-->
-                        </ul>
+        <header>
+            <div class="top-row">
+                <div class="logo">
+                    <a href="/">Fun Figures</a>
+                </div>
+                <form>
+                    <div class="search-module input-group rounded">
+                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                        <button class="input-group-text border-0" id="search-addon">
+                          <img src="../../static/layout/search.png" width="20">
+                        </button>
                     </div>
+                </form>
+                <div class="user">
+                    <?php if (User::isUserAuthenticated()) : ?>
+                        <a href="" class="btn btn-light text-dark  me-2 <?php if (User::isAdmin()) echo 'admin-label'?>">Hello, <?=$user['firstname']?></a>
+                        <a href="/user/logout" class="btn btn-light text-dark me-2">Вийти</a>
+                    <?php else : ?>
+                        <a href="/user/login" class="btn btn-light text-dark me-2 ">Login</a>
+                        <a href="/user/register" class="btn btn-dark">Register</a>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="px-3 py-2 border-bottom mb-3">
-                <div class="container d-flex flex-wrap justify-content-center">
-                    <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search">
-                        <?php if (User::isUserAuthenticated()) : ?>
-                        <input type="search" class="form-control" placeholder="Пошук" aria-label="Search">
-                        <?php endif; ?>
-                    </form>
-
-                    <div class="text-end">
-                        <?php if (User::isUserAuthenticated()) : ?>
-                            <a href="" class="btn btn-light text-dark me-2 <?php if (User::isAdmin()) echo 'admin-label'?>">Hello, <?=$user['firstname']?></a>
-                            <a href="/user/logout" class="btn btn-light text-dark me-2">Вийти</a>
-                        <?php else : ?>
-                            <a href="/user/login" class="btn btn-light text-dark me-2">Увійти</a>
-                            <a href="/user/register" class="btn btn-primary">Реєстрація</a>
-                        <?php endif; ?>
-                    </div>
-                </div>
+            <div class="bottom-row">
+                <ul class="modules">
+                    <li><a href="/product">All products</a></li>
+                    <li><a href="/category">Categories</a></li>
+                    <li><a href="/theme">Theme</a></li>
+                    <li><a href="/personage">Personages</a></li>
+                    <li><a href="">About Us</a></li>
+                </ul>
             </div>
         </header>
 

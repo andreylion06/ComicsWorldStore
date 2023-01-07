@@ -13,7 +13,7 @@ use utils\Photo;
 class DataController extends Controller
 {
     public static function indexAction($controller, $moduleName) {
-        $rows = DataTable::getItem($moduleName);
+        $rows = DataTable::getItems($moduleName);
         if(User::isAdmin())
             $viewPath = "views/{$moduleName}/index-admin.php";
         else

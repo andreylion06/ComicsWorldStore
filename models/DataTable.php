@@ -32,7 +32,7 @@ class  DataTable {
             'id' => $id
         ]);
     }
-    public static function getItem($tableName) {
+    public static function getItems($tableName) {
         $rows = Core::getInstance()->db->select($tableName);
         return array_reverse($rows);
     }

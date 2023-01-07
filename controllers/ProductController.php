@@ -25,8 +25,10 @@ class ProductController extends Controller
         $module_id = intval($params[1]);
         if (empty($module_id))
             $module_id = null;
-        $categoriesList = DataTable::getItem('category');
-        $themesList = DataTable::getItem('theme');
+        $categoriesList = DataTable::getItems('category');
+        $themesList = DataTable::getItems('theme');
+        $personagesList = DataTable::getItems('personage');
+        $brandsList = DataTable::getItems('brand');
         if (Core::getInstance()->requestMethod === 'POST') {
             $errors = [];
             $_POST['name'] = trim($_POST['name']);
@@ -52,6 +54,8 @@ class ProductController extends Controller
                     'model' => $model,
                     'categories' => $categoriesList,
                     'themes' => $themesList,
+                    'personages' => $personagesList,
+                    'brands' => $brandsList,
                     $moduleName.'_id' => $module_id
                 ]);
             }
@@ -59,6 +63,8 @@ class ProductController extends Controller
         return $this->render(null, [
             'categories' => $categoriesList,
             'themes' => $themesList,
+            'personages' => $personagesList,
+            'brands' => $brandsList,
             $moduleName.'_id' => $module_id
         ]);
     }

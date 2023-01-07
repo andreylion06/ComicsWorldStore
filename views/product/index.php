@@ -6,10 +6,10 @@ use models\User;
 ?>
 
 
-<h1 class="h3 mb-3 fw-normal text-center">Список товарів</h1>
+<h1 class="h3 mb-3 fw-normal text-center">Product list</h1>
 <?php if(User::isAdmin()) : ?>
     <div class="mb-3">
-        <a href="/product/add" class="btn btn-success">Додати товар</a>
+        <a href="/product/add" class="btn btn-success">Add product</a>
     </div>
 <?php endif; ?>
 

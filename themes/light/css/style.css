@@ -50,3 +50,72 @@ a {
     top: -10px;
     left: 2px;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Coda+Caption&display=swap');
+.logo {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.logo a {
+    font-family: 'Coda Caption', sans-serif;
+    color: black;
+    text-decoration: none;
+}
+
+header {
+    padding: 40px 40px 10px 40px;
+    margin-bottom: 40px;
+    box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+}
+
+header .top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header .search-module {
+    width: 20vw;
+}
+
+header .user .btn {
+    padding: 15px 40px;
+    border: none;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+header .user .btn:hover {
+    transition: all 500ms;
+    border: none;
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: scale(1.03);
+}
+
+header .bottom-row ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+header .modules a {
+    color: black;
+    text-decoration: none;
+}
+
+header .modules li::after {
+    content: " ";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #2EE59D;
+    transition: width 300ms;
+}
+
+header .modules li:hover::after {
+    width: 100%;
+}

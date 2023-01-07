@@ -5,6 +5,10 @@
 /** @var int|null $category_id */
 /** @var array $themes */
 /** @var int|null $theme_id */
+/** @var array $personages */
+/** @var int|null $personage_id */
+/** @var array $brands */
+/** @var int|null $brand_id */
 ?>
 
 <h2>Adding a product</h2>
@@ -36,6 +40,28 @@
         </select>
         <?php if (!empty($errors['theme_id'])): ?>
             <div class="form-text text-danger"><?=$errors['theme_id'] ?></div>
+        <?php endif; ?>
+    </div>
+    <div class="mb-3">
+        <label for="theme_id" class="form-label">Select a product personage</label>
+        <select class="form-control" id="personage_id" name="personage_id">
+            <?php foreach ($personages as $row) : ?>
+                <option <?php if($row['id'] == $personage_id) echo 'selected'; ?> value="<?=$row['id']?>"><?=$row['name']?></option>
+            <?php endforeach; ?>
+        </select>
+        <?php if (!empty($errors['personage_id'])): ?>
+            <div class="form-text text-danger"><?=$errors['personage_id'] ?></div>
+        <?php endif; ?>
+    </div>
+    <div class="mb-3">
+        <label for="theme_id" class="form-label">Select a product brand</label>
+        <select class="form-control" id="brand_id" name="brand_id">
+            <?php foreach ($brands as $row) : ?>
+                <option <?php if($row['id'] == $brand_id) echo 'selected'; ?> value="<?=$row['id']?>"><?=$row['name']?></option>
+            <?php endforeach; ?>
+        </select>
+        <?php if (!empty($errors['brand_id'])): ?>
+            <div class="form-text text-danger"><?=$errors['brand_id'] ?></div>
         <?php endif; ?>
     </div>
     <div class="mb-3">
