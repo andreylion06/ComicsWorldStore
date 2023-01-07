@@ -8,7 +8,7 @@
     <p>After removing a <?=$moduleName?>, all products in this <?=$moduleName?> will fall into the standard <?=$moduleName?> <b>"Undefined"</b></p>
     <hr>
     <p class="mb-0">
-        <a href="/category/delete/<?=$row['id']?>/yes" class="btn btn-danger">Delete</a>
+        <a href="/<?=$moduleName?>/delete/<?=$row['id']?>/yes" class="btn btn-danger">Delete</a>
         <a href="../../index.php" class="btn btn-dark">Cancel</a>
     </p>
 </div>

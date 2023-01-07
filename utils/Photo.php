@@ -19,11 +19,14 @@ class Photo
         return $fileName;
     }
     public static function deletePhoto($nameOfSection, $id) {
+        $dataClasses = ['Category', 'Theme', 'Personage', 'Brand'];
         $className = ucfirst($nameOfSection);
-        $methodName = 'get'.$className.'ById';
-        $row = call_user_func('\\models\\'.$className.'::'.$methodName, $id);
+        $methodName = 'getById';
+        if(in_array($className, $dataClasses))
+            $row = call_user_func('\\models\\DataTable'.'::'.$methodName, $className, $id);
+        else
+            $row = call_user_func('\\models\\'.$className.'::'.$methodName, $className);
         $photoPath = 'files/'.$nameOfSection.'/'.$row['photo'];
-
         if (is_file($photoPath))
             unlink($photoPath);
     }

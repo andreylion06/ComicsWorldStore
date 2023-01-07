@@ -11,7 +11,7 @@ class  DataTable {
             'photo' => $fileName
         ]);
     }
-    public static function getItemById($tableName, $id) {
+    public static function getById($tableName, $id) {
         $rows = Core::getInstance()->db->select($tableName, '*', [
             'id' => $id
         ]);
@@ -34,6 +34,7 @@ class  DataTable {
     }
     public static function getItems($tableName) {
         $rows = Core::getInstance()->db->select($tableName);
-        return array_reverse($rows);
+        sort($rows);
+        return $rows;
     }
 }

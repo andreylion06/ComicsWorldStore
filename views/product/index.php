@@ -12,27 +12,36 @@ use models\User;
         <a href="/product/add" class="btn btn-success">Add product</a>
     </div>
 <?php endif; ?>
-
-<div class="row row-cols-1 row-cols-md-4 g-4 data-list">
+<div class="products">
     <?php foreach ($products as $row) : ?>
-        <div class="col">
+        <?php if (!$row['visible'] && !User::isAdmin()) continue; ?>
+        <div class="product-item">
             <a href="/product/view/<?=$row['id'] ?>" class="card-link">
-                <div class="card">
-                    <?php $filePath = 'files/product/'.$row['photo'];?>
-                    <?php if (is_file($filePath)) : ?>
-                        <img src="/<?=$filePath?>" class="card-img-top" alt="...">
-                    <?php else : ?>
-                        <img src="/static/images/no-image.jpg" class="card-img-top" alt="...">
+                <?php $filePath = 'files/product/'.$row['photo'];?>
+                <?php if (is_file($filePath)) : ?>
+                        <img src="/<?=$filePath?>" class="avatar <?php if(!$row['visible']) echo 'black-white'?>">
+                    <?php if (!$row['visible']) : ?>
+                        <img src="../../static/layout/unvisible.png" width="20" class="invis">
                     <?php endif; ?>
-                    <div class="card-body">
-                        <h5 class="card-title"><?=$row['name']?></h5>
+                <?php else : ?>
+                    <img src="/static/images/no-image.jpg">
+                <?php endif; ?>
+                <div class="product-name">
+                    <?=$row['name']?>
+                </div>
+                <div class="product-row">
+                    <div class="price">
+                        <span class="number"><?=$row['price']?></span> <span class="cur">hrn.</span>
                     </div>
-                    <div class="card-body">
-                        <?php if(User::isAdmin()) : ?>
-                            <a href="/product/edit/<?=$row['id'] ?>" class="btn btn-primary">Edit</a>
-                            <a href="/product/delete/<?=$row['id'] ?>" class="btn btn-danger">Delete</a>
-                        <?php endif; ?>
+                    <div class="cart-btn">
+                        <img src="../../static/layout/cart.svg">
                     </div>
+                </div>
+                <div class="card-body">
+                    <?php if(User::isAdmin()) : ?>
+                        <a href="/product/edit/<?=$row['id'] ?>" class="btn btn-primary">Edit</a>
+                        <a href="/product/delete/<?=$row['id'] ?>" class="btn btn-danger">Delete</a>
+                    <?php endif; ?>
                 </div>
             </a>
         </div>

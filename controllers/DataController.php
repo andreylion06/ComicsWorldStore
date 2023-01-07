@@ -54,7 +54,7 @@ class DataController extends Controller
         if(!User::isAdmin())
             return $controller->error(403);
         if($id > 0) {
-            $row = DataTable::getItemById($moduleName, $id);
+            $row = DataTable::getById($moduleName, $id);
             if($answer) {
                 $filePath = "files/{$moduleName}/{$row['photo']}";
                 if(is_file($filePath)) {
@@ -76,7 +76,7 @@ class DataController extends Controller
         if(!User::isAdmin())
             return $controller->error(403);
         if($id > 0) {
-            $row = DataTable::getItemById($moduleName, $id);
+            $row = DataTable::getById($moduleName, $id);
             if(Core::getInstance()->requestMethod === 'POST') {
                 $errors = [];
                 $_POST['name'] = trim($_POST['name']);
@@ -106,7 +106,7 @@ class DataController extends Controller
             return $controller->error(403);
     }
     public static function viewAction($controller, $moduleName, $id) {
-        $row = DataTable::getItemById($moduleName, $id);
+        $row = DataTable::getById($moduleName, $id);
         $className = 'Product';
         $methodName = 'getProductsIn';
         $products = call_user_func('\\models\\'.$className.'::'.$methodName, $moduleName, $id);

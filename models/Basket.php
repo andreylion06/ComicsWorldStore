@@ -17,7 +17,7 @@ class Basket
             $products = [];
             $totalPrice = 0;
             foreach ($_SESSION['basket'] as $product_id => $count) {
-                $product = Product::getProductById($product_id);
+                $product = Product::getById($product_id);
                 $totalPrice += $product['price'] * $count;
                 $products [] = ['product' => $product, 'count' => $count];
             }

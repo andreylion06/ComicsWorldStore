@@ -32,7 +32,7 @@ class Product
         $rows = Core::getInstance()->db->select(self::$tableName, '*');
         return array_reverse($rows);
     }
-    public static function getProductById($id) {
+    public static function getById($id) {
         $row = Core::getInstance()->db->select(self::$tableName, '*', [
             'id' => $id
         ]);

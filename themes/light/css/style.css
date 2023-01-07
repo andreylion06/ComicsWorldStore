@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 html, body {
+    font-family: 'Montserrat', sans-serif;
     height: 100%;
 }
 
@@ -14,10 +17,31 @@ main {
 
 a {
     cursor: pointer;
+    text-decoration: none;
+    color: black
+}
+
+a:hover {
+    text-decoration: none;
+    color: black
 }
 
 .error {
     color: red;
+}
+
+.black-white {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+.btn-primary {
+    background-color: #2EE59D !important;
+    border: 2px solid transparent !important;
+}
+
+.btn-primary:hover {
+    background-color: #66E5B3 !important;
 }
 
 .bi {
@@ -31,10 +55,6 @@ a {
 
 .data-list .card {
     transition-duration: 0.5s;
-}
-
-.data-list a {
-    text-decoration: none;
 }
 
 .data-list .card:hover {
@@ -59,8 +79,6 @@ a {
 
 .logo a {
     font-family: 'Coda Caption', sans-serif;
-    color: black;
-    text-decoration: none;
 }
 
 header {
@@ -102,11 +120,6 @@ header .bottom-row ul {
     margin-top: 30px;
 }
 
-header .modules a {
-    color: black;
-    text-decoration: none;
-}
-
 header .modules li::after {
     content: " ";
     display: block;
@@ -118,4 +131,82 @@ header .modules li::after {
 
 header .modules li:hover::after {
     width: 100%;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.product-item {
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+    cursor: pointer;
+    transition: all 500ms;
+    max-width: 400px;
+}
+
+.product-item:hover {
+    transform: scale(1.05);
+}
+
+.product-item:hover .product-name {
+    text-decoration: underline;
+}
+
+.product-item .avatar {
+    width: 250px;
+}
+
+.invis {
+    width: 30px;
+    position: relative;
+    top: -240px;
+    left: 250px
+}
+
+.product-item .product-name {
+    width: 250px;
+    height: 60px;
+    font-size: 14px;
+}
+
+.product-item .price {
+    font-weight: bold;
+
+}
+
+.product-item .price .number {
+    font-size: 30px;
+}
+
+.product-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-item .cart-btn {
+    display: inline-block;
+    padding: 5px 20px;
+    background-color: #2EE59D;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-item .cart-btn:hover {
+    background-color: #66E5B3;
+    transform: scale(1.03);
+}
+
+.product-item .cart-btn img {
+    width: 30px;
+}
+
+.product-item .card-body {
+    margin-top: 10px;
 }
