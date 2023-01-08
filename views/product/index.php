@@ -1,6 +1,7 @@
 <?php
 
 /** @var array $products */
+/** @var array $pagination */
 
 use models\User;
 ?>
@@ -19,7 +20,7 @@ use models\User;
             <a href="/product/view/<?=$row['id'] ?>" class="card-link">
                 <?php $filePath = 'files/product/'.$row['photo'];?>
                 <?php if (is_file($filePath)) : ?>
-                        <img src="/<?=$filePath?>" class="avatar <?php if(!$row['visible']) echo 'black-white'?>">
+                        <img src="/<?=$filePath?>" class="avatar product-avatar <?php if(!$row['visible']) echo 'black-white'?>">
                 <?php else : ?>
                     <img src="/static/images/no-image.jpg" class="avatar <?php if(!$row['visible']) echo 'black-white'?>">
                 <?php endif; ?>
@@ -47,3 +48,37 @@ use models\User;
         </div>
     <?php endforeach; ?>
 </div>
+<?php
+$paginationBar = \utils\Pagination::GetStylingArray(
+    $pagination['page'],
+    $pagination['count'],
+    $pagination['totalNumber']
+);
+$pagination = $paginationBar['paginationNums'];
+?>
+<nav class="nav-pagination">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link <?=$paginationBar['previous']?>" href="/product/index/<?=$paginationBar['previous']?>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <?php foreach ($pagination as $key => $value) :?>
+            <li class="page-item">
+                <a
+                    class="page-link <?=$value?>"
+                    href="/product/index/<?=$key?>"
+                >
+                    <?=$key?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+        <li class="page-item">
+            <a class="page-link <?=$paginationBar['next']?>" href="/product/index/<?=$paginationBar['next']?>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>

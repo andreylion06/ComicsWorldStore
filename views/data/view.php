@@ -12,23 +12,36 @@ use models\User;
         <a href="/product/add/<?=$moduleName?>/<?=$row['id']?>" class="btn btn-success">Add product</a>
     </div>
 <?php endif; ?>
-<div class="row row-cols-1 row-cols-md-4 g-4 data-list">
-    <?php foreach ($products as $product) : ?>
-        <div class="col">
-            <a href="/product/view/<?=$product['id'] ?>" class="card-link">
-                <div class="card">
-                    <?php $filePath = 'files/product/'.$product['photo'];?>
-                    <?php if (is_file($filePath)) : ?>
-                        <img src="/<?=$filePath?>" class="card-img-top" alt="...">
-                    <?php else : ?>
-                        <img src="/static/images/no-image.jpg" class="card-img-top" alt="...">
+<div class="item-cards">
+    <?php foreach ($products as $row) : ?>
+        <?php if (!$row['visible'] && !User::isAdmin()) continue; ?>
+        <div class="item-card">
+            <a href="/product/view/<?=$row['id'] ?>" class="card-link">
+                <?php $filePath = 'files/product/'.$row['photo'];?>
+                <?php if (is_file($filePath)) : ?>
+                    <img src="/<?=$filePath?>" class="avatar product-avatar <?php if(!$row['visible']) echo 'black-white'?>">
+                <?php else : ?>
+                    <img src="/static/images/no-image.jpg" class="avatar <?php if(!$row['visible']) echo 'black-white'?>">
+                <?php endif; ?>
+                <?php if (!$row['visible']) : ?>
+                    <img src="../../static/layout/unvisible.png" class="invis">
+                <?php endif; ?>
+                <div class="product-name name">
+                    <?=$row['name']?>
+                </div>
+                <div class="card-row">
+                    <div class="price">
+                        <span class="number"><?=$row['price']?></span> <span class="cur">hrn.</span>
+                    </div>
+                    <div class="cart-btn">
+                        <img src="../../static/layout/cart.svg">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <?php if(User::isAdmin()) : ?>
+                        <a href="/product/edit/<?=$row['id'] ?>" class="btn btn-primary">Edit</a>
+                        <a href="/product/delete/<?=$row['id'] ?>" class="btn btn-danger">Delete</a>
                     <?php endif; ?>
-                    <div class="card-body">
-                        <h5 class="card-title"><?=$product['name']?></h5>
-                    </div>
-                    <div class="card-body">
-
-                    </div>
                 </div>
             </a>
         </div>

@@ -17,7 +17,12 @@ $lTableName = ucfirst($moduleName);
             <div class="item-card">
                 <a href="/<?=$moduleName?>/view/<?=$row['id'] ?>" class="card-link">
                     <?php $filePath = 'files/'.$moduleName.'/'.$row['photo'];?>
-                    <?php if (is_file($filePath)) : ?>
+                    <?php
+//                    if($row['id'] == 1) {
+//                        var_dump($filePath);
+//                        die;
+//                    }
+                    if (is_file($filePath)) :?>
                         <img src="/<?=$filePath?>" class="avatar">
                     <?php else : ?>
                         <img src="/static/images/no-image.jpg" class="avatar">

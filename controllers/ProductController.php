@@ -13,10 +13,24 @@ use utils\Photo;
 
 class ProductController extends Controller
 {
-    public function indexAction() {
-        $products = Product::getAllProducts();
+    public function indexAction($params) {
+        $countPerPage = 12;
+        $totalNumber = Product::count();
+        if(isset($params[0]))
+            $page = intval($params[0]);
+        else
+            $page = 1;
+        if(($page - 1) * $countPerPage > $totalNumber)
+            return $this->error(404);
+        $products = Product::getOnePage($page, $countPerPage);
         return $this->render(null, [
-            'products' => $products
+            'products' => $products,
+            'pagination' => [
+                'page' => $page,
+                'count' => $countPerPage,
+                'totalNumber' => $totalNumber
+            ]
+
         ]);
         return $this->render();
     }
@@ -40,10 +54,10 @@ class ProductController extends Controller
         $module_id = intval($params[1]);
         if (empty($module_id))
             $module_id = null;
-        $personagesList = DataTable::getSortedItems('personage');
 
         $categoriesList = DataTable::getSortedItems('category');
         $themesList = DataTable::getSortedItems('theme');
+        $personagesList = DataTable::getSortedItems('personage');
         $brandsList = DataTable::getSortedItems('brand');
         if (Core::getInstance()->requestMethod === 'POST') {
             $errors = $this->getInputErrors();

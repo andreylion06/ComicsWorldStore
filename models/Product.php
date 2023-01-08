@@ -32,6 +32,15 @@ class Product
         $rows = Core::getInstance()->db->select(self::$tableName, '*');
         return array_reverse($rows);
     }
+    public static function count() {
+        return count(self::getAllProducts());
+    }
+    public static function getOnePage($currentPage, $count) {
+        $rows = self::getAllProducts();
+        $startItem = ($currentPage - 1) * $count;
+        $pageItems = array_slice($rows, $startItem, $count);
+        return $pageItems;
+    }
     public static function getById($id) {
         $row = Core::getInstance()->db->select(self::$tableName, '*', [
             'id' => $id
