@@ -6,6 +6,8 @@
 /** @var array $themes */
 /** @var array $personages */
 /** @var array $brands */
+
+if(isset($model)) $row = $model;
 ?>
 
 <h2>Editing a product</h2>
@@ -20,7 +22,9 @@
     <div class="mb-3">
         <label for="category_id" class="form-label">Select a product category</label>
         <select class="form-control" id="category_id" name="category_id">
-            <?php foreach ($categories as $category_row) : ?>
+            <?php
+            foreach ($categories as $category_row) :
+                ?>
                 <option <?php if($category_row['id'] == $row['category_id']) echo 'selected'; ?> value="<?=$category_row['id']?>"><?=$category_row['name']?></option>
             <?php endforeach; ?>
         </select>
@@ -99,7 +103,7 @@
     </div>
     <div class="mb-3">
         <label for="file" class="form-label">A file with a photo for the product</label>
-        <input type="file" class="form-control" name="file" id="file" accept="image/jpeg"/>
+        <input type="file" class="form-control" name="file" id="file" accept="image/jpeg" value=""/>
         <?php if (!empty($errors['file'])): ?>
             <div class="form-text text-danger"><?=$errors['file'] ?></div>
         <?php endif; ?>

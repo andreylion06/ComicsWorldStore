@@ -12,24 +12,24 @@ use models\User;
         <a href="/product/add" class="btn btn-success">Add product</a>
     </div>
 <?php endif; ?>
-<div class="products">
+<div class="item-cards">
     <?php foreach ($products as $row) : ?>
         <?php if (!$row['visible'] && !User::isAdmin()) continue; ?>
-        <div class="product-item">
+        <div class="item-card">
             <a href="/product/view/<?=$row['id'] ?>" class="card-link">
                 <?php $filePath = 'files/product/'.$row['photo'];?>
                 <?php if (is_file($filePath)) : ?>
                         <img src="/<?=$filePath?>" class="avatar <?php if(!$row['visible']) echo 'black-white'?>">
-                    <?php if (!$row['visible']) : ?>
-                        <img src="../../static/layout/unvisible.png" width="20" class="invis">
-                    <?php endif; ?>
                 <?php else : ?>
-                    <img src="/static/images/no-image.jpg">
+                    <img src="/static/images/no-image.jpg" class="avatar <?php if(!$row['visible']) echo 'black-white'?>">
                 <?php endif; ?>
-                <div class="product-name">
+                <?php if (!$row['visible']) : ?>
+                    <img src="../../static/layout/unvisible.png" class="invis">
+                <?php endif; ?>
+                <div class="product-name name">
                     <?=$row['name']?>
                 </div>
-                <div class="product-row">
+                <div class="card-row">
                     <div class="price">
                         <span class="number"><?=$row['price']?></span> <span class="cur">hrn.</span>
                     </div>

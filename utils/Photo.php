@@ -25,7 +25,7 @@ class Photo
         if(in_array($className, $dataClasses))
             $row = call_user_func('\\models\\DataTable'.'::'.$methodName, $className, $id);
         else
-            $row = call_user_func('\\models\\'.$className.'::'.$methodName, $className);
+            $row = call_user_func('\\models\\'.$className.'::'.$methodName, $id);
         $photoPath = 'files/'.$nameOfSection.'/'.$row['photo'];
         if (is_file($photoPath))
             unlink($photoPath);

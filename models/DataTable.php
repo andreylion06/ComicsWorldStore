@@ -34,7 +34,22 @@ class  DataTable {
     }
     public static function getItems($tableName) {
         $rows = Core::getInstance()->db->select($tableName);
-        sort($rows);
+        $rows = array_reverse($rows);
+        return $rows;
+    }
+    public static function getSortedItems($tableName) {
+        $rows = self::getItems($tableName);
+        $name = array_column($rows, 'name');
+        array_multisort($name, SORT_ASC, $rows);
+        // Move 'Default' item to the first place
+        foreach ($rows as $key => $value) {
+            if($value['name'] === 'Default') {
+                $default = $value;
+                unset($rows[$key]);
+                array_unshift($rows, $default);
+                break;
+            }
+        }
         return $rows;
     }
 }

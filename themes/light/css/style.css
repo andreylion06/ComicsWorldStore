@@ -133,7 +133,7 @@ header .modules li:hover::after {
     width: 100%;
 }
 
-.products {
+.item-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     width: 100%;
@@ -141,55 +141,70 @@ header .modules li:hover::after {
     flex-direction: row;
 }
 
-.product-item {
+.item-cards .item-card {
     padding: 20px;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
     cursor: pointer;
     transition: all 500ms;
-    max-width: 400px;
+    max-width: 300px;
+    position: relative;
 }
 
-.product-item:hover {
+.item-cards .item-card:hover {
     transform: scale(1.05);
 }
 
-.product-item:hover .product-name {
+.item-cards .item-card:hover .name {
     text-decoration: underline;
 }
 
-.product-item .avatar {
+.item-cards .item-card .avatar {
     width: 250px;
+    height: 250px;
+    object-fit: cover;
+    object-position: 50% 20%;
+    margin: 0 auto;
 }
 
 .invis {
     width: 30px;
-    position: relative;
-    top: -240px;
-    left: 250px
+    position: absolute;
 }
 
-.product-item .product-name {
+.item-cards .item-card .name {
     width: 250px;
-    height: 60px;
     font-size: 14px;
+    margin-top: 10px;
 }
 
-.product-item .price {
+.item-cards .item-card .bigger {
+    font-size: 20px;
+}
+
+.item-cards .item-card .product-name {
+    height: 60px;
+}
+
+.item-cards .item-card .price {
     font-weight: bold;
-
 }
 
-.product-item .price .number {
+.item-cards .item-card .count-of-items {
+    font-size: 15px;
+}
+
+.item-cards .item-card .price .number {
     font-size: 30px;
 }
 
-.product-row {
+.item-cards .item-card .card-row {
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
 }
 
-.product-item .cart-btn {
+.item-cards .item-card .cart-btn {
     display: inline-block;
     padding: 5px 20px;
     background-color: #2EE59D;
@@ -198,15 +213,15 @@ header .modules li:hover::after {
     cursor: pointer;
 }
 
-.product-item .cart-btn:hover {
+.item-cards .item-card .cart-btn:hover {
     background-color: #66E5B3;
     transform: scale(1.03);
 }
 
-.product-item .cart-btn img {
+.item-cards .item-card .cart-btn img {
     width: 30px;
 }
 
-.product-item .card-body {
+.item-cards .item-card .card-body {
     margin-top: 10px;
 }

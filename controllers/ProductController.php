@@ -40,10 +40,11 @@ class ProductController extends Controller
         $module_id = intval($params[1]);
         if (empty($module_id))
             $module_id = null;
-        $categoriesList = DataTable::getItems('category');
-        $themesList = DataTable::getItems('theme');
-        $personagesList = DataTable::getItems('personage');
-        $brandsList = DataTable::getItems('brand');
+        $personagesList = DataTable::getSortedItems('personage');
+
+        $categoriesList = DataTable::getSortedItems('category');
+        $themesList = DataTable::getSortedItems('theme');
+        $brandsList = DataTable::getSortedItems('brand');
         if (Core::getInstance()->requestMethod === 'POST') {
             $errors = $this->getInputErrors();
 
@@ -78,10 +79,10 @@ class ProductController extends Controller
             return $this->error(403);
         if($id > 0) {
             $row = Product::getById($id);
-            $categoriesList = DataTable::getItems('category');
-            $themesList = DataTable::getItems('theme');
-            $personagesList = DataTable::getItems('personage');
-            $brandsList = DataTable::getItems('brand');
+            $categoriesList = DataTable::getSortedItems('category');
+            $themesList = DataTable::getSortedItems('theme');
+            $personagesList = DataTable::getSortedItems('personage');
+            $brandsList = DataTable::getSortedItems('brand');
             if(Core::getInstance()->requestMethod === 'POST') {
                 $errors = [];
                 $_POST['name'] = trim($_POST['name']);

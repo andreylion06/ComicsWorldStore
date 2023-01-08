@@ -14,12 +14,10 @@ class DataController extends Controller
 {
     public static function indexAction($controller, $moduleName) {
         $rows = DataTable::getItems($moduleName);
-        if(User::isAdmin())
-            $viewPath = "views/{$moduleName}/index-admin.php";
-        else
-            $viewPath = "views/{$moduleName}/index.php";
+        foreach ($rows as &$row)
+            $row += array('products_count' => count(self::getProductsIn($moduleName, $row['id'])));
 
-        return $controller->render($viewPath, [
+        return $controller->render(null, [
             'moduleName' => $moduleName,
             'rows' => $rows
         ]);
@@ -59,6 +57,10 @@ class DataController extends Controller
                 $filePath = "files/{$moduleName}/{$row['photo']}";
                 if(is_file($filePath)) {
                     unlink($filePath);
+                }
+                $products = Product::getProductsIn($moduleName, $id);
+                foreach ($products as $product) {
+                    Product::setDefaultForNull($moduleName, $product['id']);
                 }
                 Photo::deletePhoto($moduleName, $id);
                 DataTable::deleteItem($moduleName, $id);
@@ -107,13 +109,18 @@ class DataController extends Controller
     }
     public static function viewAction($controller, $moduleName, $id) {
         $row = DataTable::getById($moduleName, $id);
-        $className = 'Product';
-        $methodName = 'getProductsIn';
-        $products = call_user_func('\\models\\'.$className.'::'.$methodName, $moduleName, $id);
+        $products = self::getProductsIn($moduleName, $id);
         return $controller->render(null, [
             'moduleName' => $moduleName,
             'row' => $row,
             'products' => $products
         ]);
+    }
+
+    public static function getProductsIn($moduleName, $id) {
+        $className = 'Product';
+        $methodName = 'getProductsIn';
+        $products = call_user_func('\\models\\'.$className.'::'.$methodName, $moduleName, $id);
+        return $products;
     }
 }

@@ -12,26 +12,29 @@ $lTableName = ucfirst($moduleName);
         <a href="/<?=$moduleName?>/add" class="btn btn-success">Add a <?=$moduleName?></a>
     </div>
 <?php endif; ?>
-<div class="row row-cols-1 row-cols-md-4 g-4 data-list">
+<div class="item-cards">
     <?php foreach ($rows as $row) : ?>
-        <div class="col">
-            <a href="/<?=$moduleName?>/view/<?=$row['id'] ?>" class="card-link">
-                <div class="card">
+            <div class="item-card">
+                <a href="/<?=$moduleName?>/view/<?=$row['id'] ?>" class="card-link">
                     <?php $filePath = 'files/'.$moduleName.'/'.$row['photo'];?>
                     <?php if (is_file($filePath)) : ?>
-                        <img src="/<?=$filePath?>" class="card-img-top" alt="...">
+                        <img src="/<?=$filePath?>" class="avatar">
                     <?php else : ?>
-                        <img src="/static/images/no-image.jpg" class="card-img-top" alt="...">
+                        <img src="/static/images/no-image.jpg" class="avatar">
                     <?php endif; ?>
-                    <div class="card-body">
-                        <h5 class="card-title"><?=$row['name']?></h5>
+                    <div class="name bigger">
+                        <?=$row['name']?>
+                    </div>
+                    <div class="count-of-items">
+                        <i><?=$row['products_count']?> items</i>
                     </div>
                     <div class="card-body">
-                        <a href="/<?=$moduleName?>/edit/<?=$row['id'] ?>" class="btn btn-primary">Edit</a>
-                        <a href="/<?=$moduleName?>/delete/<?=$row['id'] ?>" class="btn btn-danger">Delete</a>
+                        <?php if(User::isAdmin() && $row['name'] != 'Default') : ?>
+                            <a href="/<?=$moduleName?>/edit/<?=$row['id'] ?>" class="btn btn-primary">Edit</a>
+                            <a href="/<?=$moduleName?>/delete/<?=$row['id'] ?>" class="btn btn-danger">Delete</a>
+                        <?php endif; ?>
                     </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
     <?php endforeach; ?>
 </div>
