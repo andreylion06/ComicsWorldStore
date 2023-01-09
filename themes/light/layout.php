@@ -129,14 +129,20 @@ else
                 <div class="logo">
                     <a href="/">Fun Figures</a>
                 </div>
-                <form>
+                <form action="" method="post">
                     <div class="search-module input-group rounded">
-                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                        <button class="input-group-text border-0" id="search-addon">
+                        <input type="text" name="search" class="form-control rounded" value="<?=$_GET['search']?>" placeholder="Search" />
+                        <button type="submit" name="btn-search" class="input-group-text border-0" id="search">
                           <img src="../../static/layout/search.png" width="20">
                         </button>
                     </div>
                 </form>
+                <?php
+                    if(isset($_POST['btn-search'])) {
+                        var_dump($_POST);
+                        header("Location: /product/index?search={$_POST['search']}");
+                    }
+                ?>
                 <div class="user">
                     <?php if (User::isUserAuthenticated()) : ?>
                         <a href="" class="btn btn-light text-dark  me-2 <?php if (User::isAdmin()) echo 'admin-label'?>">Hello, <?=$user['firstname']?></a>

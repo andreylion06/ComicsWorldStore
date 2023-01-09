@@ -29,15 +29,25 @@ class Pagination
             $next = $page + 1;
             $previous = $page - 1;
         }
+
         if ($totalNumber > $count && $totalNumber <= $count * 2) {
             $paginationNums = [1 => null, 2 => null, 3 => 'disabled'];
             $paginationNums[$page] = 'active';
         }
-//        else if($count >= $totalNumber) {
-//            $paginationNums = [1 => 'active', 2 => 'disabled', 3 => 'disabled'];
-//            $next = 'disabled';
-//            $previous = 'disabled';
-//        }
+        else if($totalNumber <= $count) {
+            $paginationNums = [1 => 'active', 2 => 'disabled', 3 => 'disabled'];
+            $next = 'disabled';
+            $previous = 'disabled';
+        }
+
+        if($totalNumber == 0) {
+            $paginationNums = [1 => 'disabled', 2 => 'disabled', 3 => 'disabled'];
+            $next = 'disabled';
+            $previous = 'disabled';
+        }
+//        var_dump($totalNumber);
+//        var_dump($count);
+//        die;
         return [
             'previous' => $previous,
             'paginationNums' => $paginationNums,

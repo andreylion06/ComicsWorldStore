@@ -208,23 +208,25 @@ header .modules li:hover::after {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    margin-top: 10px;
 }
 
-.item-cards .item-card .cart-btn {
+.cart-btn {
     display: inline-block;
     padding: 5px 20px;
     background-color: #2EE59D;
     border: 2px solid transparent;
     border-radius: 5px;
     cursor: pointer;
+    transition: 200ms all;
 }
 
-.item-cards .item-card .cart-btn:hover {
+.cart-btn:hover {
     background-color: #66E5B3;
     transform: scale(1.03);
 }
 
-.item-cards .item-card .cart-btn img {
+.cart-btn img {
     width: 30px;
 }
 
@@ -250,3 +252,92 @@ header .modules li:hover::after {
     background-color: #2ee59d;
     border: 2px solid transparent;
 }
+
+.product-view-avatar {
+    width: 100%;
+    padding: 0 100px 50px 0;
+    object-fit: contain;
+    object-position: 50% 20%;
+}
+
+.col-img {
+    display: flex;
+    align-items: center;
+    border-right: 3px solid #f3f3f7;
+    border-bottom: 3px solid #f3f3f7;
+}
+
+.col-info {
+    padding-left: 30px;
+}
+
+.icon {
+    object-fit: contain;
+    width: 30px;
+    height: 30px;
+}
+
+.row-info {
+    margin: 0 30px;
+}
+
+.row-delivery {
+    padding: 10px;
+    border-bottom: 3px dotted #f3f3f7;
+    cursor: pointer;
+}
+
+.row-delivery:hover {
+    background-color: #f3f3f7;
+    transition: background-color 300ms;
+}
+
+.row-delivery .name {
+    font-size: 14px;
+    margin-left: 5px;
+    margin-right: 20px;
+}
+
+.row-delivery .description {
+    font-size: 12px;
+    float: right;
+    margin-right: 20px;
+}
+
+.view-container .buy-block {
+    padding: 10px 200px 20px 200px;
+}
+
+.view-container .buy-block .price {
+    font-weight: 600;
+    font-size: 35px;
+    position: relative;
+    top: 5px;
+}
+
+.buy-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.view-container .cart-btn {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.row.descriptions {
+    margin-top: 40px;
+}
+
+.descriptions .title {
+    font-weight: 600;
+}
+
+.view-container section {
+    margin-top: 10px;
+}
+
+
+

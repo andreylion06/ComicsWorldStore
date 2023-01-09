@@ -2,6 +2,7 @@
 
 /** @var array $products */
 /** @var array $pagination */
+/** @var string $searchString */
 
 use models\User;
 ?>
@@ -59,7 +60,7 @@ $pagination = $paginationBar['paginationNums'];
 <nav class="nav-pagination">
     <ul class="pagination">
         <li class="page-item">
-            <a class="page-link <?=$paginationBar['previous']?>" href="/product/index/<?=$paginationBar['previous']?>" aria-label="Previous">
+            <a class="page-link <?=$paginationBar['previous']?>" href="/product/index?search=<?=$searchString?>&page=<?=$paginationBar['previous']?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
                 <span class="sr-only">Previous</span>
             </a>
@@ -68,14 +69,14 @@ $pagination = $paginationBar['paginationNums'];
             <li class="page-item">
                 <a
                     class="page-link <?=$value?>"
-                    href="/product/index/<?=$key?>"
+                    href="/product/index?search=<?=$searchString?>&page=<?=$key?>"
                 >
                     <?=$key?>
                 </a>
             </li>
         <?php endforeach; ?>
         <li class="page-item">
-            <a class="page-link <?=$paginationBar['next']?>" href="/product/index/<?=$paginationBar['next']?>" aria-label="Next">
+            <a class="page-link <?=$paginationBar['next']?>" href="/product/index?search=<?=$searchString?>&page=<?=$paginationBar['next']?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
                 <span class="sr-only">Next</span>
             </a>

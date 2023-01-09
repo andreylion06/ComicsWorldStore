@@ -13,7 +13,7 @@ class DB
         $this->pdo = new \PDO("mysql: host={$hostname};dbname={$database}", $login, $password);
     }
 
-    public function select($tableName, $fieldsList = "*", $conditionArray = null) {
+    public function select($tableName, $fieldsList = "*", $conditionArray = null, $operatorName = '=') {
         if(is_string($fieldsList))
             $fieldsListString = $fieldsList;
         if(is_array($fieldsList))
@@ -22,7 +22,7 @@ class DB
         if(is_array($conditionArray)) {
             $parts = [];
             foreach ($conditionArray as $key => $value) {
-                $parts[]="{$key} = :{$key}";
+                $parts[]="{$key} {$operatorName} :{$key}";
             }
             if(is_string($wherePartString))
                 $wherePartString = "WHERE ".implode(' AND ', $parts);

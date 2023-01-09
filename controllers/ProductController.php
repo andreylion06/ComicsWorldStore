@@ -13,24 +13,26 @@ use utils\Photo;
 
 class ProductController extends Controller
 {
-    public function indexAction($params) {
-        $countPerPage = 12;
-        $totalNumber = Product::count();
-        if(isset($params[0]))
-            $page = intval($params[0]);
+    public function indexAction() {
+        $searchString = $_GET['search'];
+        if(isset($_GET['page']))
+            $page = intval($_GET['page']);
         else
             $page = 1;
-        if(($page - 1) * $countPerPage > $totalNumber)
+        $countPerPage = 12;
+        $rows = Product::search($searchString);
+        $products = Product::getOnePage($rows, $page, $countPerPage);
+        $totalNumber = count($rows);
+        if(($page - 1) * $countPerPage > $totalNumber || $page <= 0)
             return $this->error(404);
-        $products = Product::getOnePage($page, $countPerPage);
         return $this->render(null, [
             'products' => $products,
             'pagination' => [
                 'page' => $page,
                 'count' => $countPerPage,
                 'totalNumber' => $totalNumber
-            ]
-
+            ],
+            'searchString' => $searchString
         ]);
         return $this->render();
     }
@@ -147,5 +149,9 @@ class ProductController extends Controller
         return $this->render(null, [
             'product' => $product
         ]);
+    }
+    public function searchAction($params) {
+        $searchString = $params[0];
+        $rows = Product::search($searchString);
     }
 }

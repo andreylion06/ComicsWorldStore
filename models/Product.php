@@ -35,8 +35,7 @@ class Product
     public static function count() {
         return count(self::getAllProducts());
     }
-    public static function getOnePage($currentPage, $count) {
-        $rows = self::getAllProducts();
+    public static function getOnePage($rows, $currentPage, $count) {
         $startItem = ($currentPage - 1) * $count;
         $pageItems = array_slice($rows, $startItem, $count);
         return $pageItems;
@@ -60,5 +59,11 @@ class Product
         $row = self::getById($id);
         $row["{$column}_id"] = 1;
         self::updateProduct($row['id'], $row);
+    }
+    public static function search($searchString) {
+        $rows = Core::getInstance()->db->select(self::$tableName, '*', [
+            'name' => "%{$searchString}%"
+        ], 'LIKE');
+        return array_reverse($rows);
     }
 }
