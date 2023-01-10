@@ -146,6 +146,15 @@ else
                 <div class="user">
                     <?php if (User::isUserAuthenticated()) : ?>
                         <a href="" class="btn btn-light text-dark  me-2 <?php if (User::isAdmin()) echo 'admin-label'?>">Hello, <?=$user['firstname']?></a>
+                        <a href="/basket" class="btn btn-light text-dark me-2">
+                            Basket
+                            <span class="count-in-basket">
+                                <?php
+                                    $count = \models\Basket::getCountItems();
+                                    if($count > 0) echo "({$count})";
+                                ?>
+                            </span>
+                        </a>
                         <a href="/user/logout" class="btn btn-light text-dark me-2">Вийти</a>
                     <?php else : ?>
                         <a href="/user/login" class="btn btn-light text-dark me-2 ">Login</a>
@@ -155,6 +164,7 @@ else
             </div>
             <div class="bottom-row">
                 <ul class="modules">
+                    <li><a href="/">Main</a></li>
                     <li><a href="/product">All Products</a></li>
                     <li><a href="/category">Categories</a></li>
                     <li><a href="/theme">Theme</a></li>

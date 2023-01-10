@@ -23,6 +23,8 @@ class ProductController extends Controller
         $rows = Product::search($searchString);
         $products = Product::getOnePage($rows, $page, $countPerPage);
         $totalNumber = count($rows);
+        if(!isset($products))
+            return $this->render('views/main/exception-no-content.php');
         if(($page - 1) * $countPerPage > $totalNumber || $page <= 0)
             return $this->error(404);
         return $this->render(null, [
@@ -47,7 +49,7 @@ class ProductController extends Controller
             $errors['theme_id'] = 'Theme not selected';
         if ($_POST['price'] <= 0)
             $errors['price'] = 'The price is incorrectly set';
-        if ($_POST['count'] <= 0)
+        if ($_POST['count'] < 0)
             $errors['count'] = 'The number of products is incorrectly specified';
         return $errors;
     }

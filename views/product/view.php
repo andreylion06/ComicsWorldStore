@@ -1,5 +1,8 @@
 <?php
 /** @var array $product */
+
+use models\User;
+
 ?>
 <div class="container view-container">
     <div class="row">
@@ -19,7 +22,34 @@
                 <div>
                     <span class="price"><?=$product['price']?></span> <span class="cur">hrn.</span>
                 </div>
-                <div class="cart-btn">Add to basket</div>
+                <?php
+                $countInBasket = \models\Basket::getCountOfId($product['id']);
+                $classBtn = "";
+                $disableLink = "";
+
+                if(User::isUserAuthenticated() && $countInBasket != 0) {
+                    if ($countInBasket < $product['count'])
+                        $outputBtn = "Add ({$countInBasket} in basket)";
+                    else if ($countInBasket == $product['count']) {
+                        $outputBtn = "All is in the basket ({$countInBasket})";
+                        $classBtn = "disabled";
+                    }
+                }
+                else if($product["count"] == 0) {
+                    $outputBtn = "Out of stock";
+                    $classBtn = "disabled";
+                    $disableLink = "href-dis";
+                }
+                else {
+                    $outputBtn = "Add to basket";
+                }
+
+                ?>
+                <a href="/basket/add/<?=$product['id']?>" class="<?=$disableLink?>">
+                    <div class="btn cart-btn <?=$classBtn?>">
+                        <?=$outputBtn?>
+                    </div>
+                </a>
             </div>
             <div class="row mb-1">
                 <section>
@@ -55,10 +85,8 @@
                     <div class="row-delivery row-info">
                         <a>
                             <img src="../../static/layout/card.svg" class="icon"/>
-                            <span class="name">Online by card</span>
+                            <span class="name">Card</span>
                         </a>
-                    </div>
-                    <div class="row-delivery row-info">
                         <a>
                             <img src="../../static/layout/cash.svg" class="icon"/>
                             <span class="name">Cash</span>

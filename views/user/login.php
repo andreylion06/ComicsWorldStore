@@ -4,10 +4,10 @@
 \core\Core::getInstance()->pageParams['title'] = 'Login';
 ?>
 
-<h1 class="h3 mb-3 fw-normal text-center">Log in to your account</h1>
+<h1 class="h3 mb-3 fw-normal text-center form-margin">Log in to your account</h1>
 
-<div class="form-signin w-100 m-auto">
-    <form class="form-signin" action="" method="post">
+<div class="form-login w-100 m-auto">
+    <form action="" method="post">
         <?php if(!empty($error)) : ?>
             <div class="message error text-center mb-2">
                 <?=$error?>

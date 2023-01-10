@@ -62,7 +62,8 @@ class Product
     }
     public static function search($searchString) {
         $rows = Core::getInstance()->db->select(self::$tableName, '*', [
-            'name' => "%{$searchString}%"
+            'name' => "%{$searchString}%",
+            'visible' => "1"
         ], 'LIKE');
         return array_reverse($rows);
     }

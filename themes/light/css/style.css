@@ -49,8 +49,12 @@ a:hover {
     fill: currentColor;
 }
 
-.form-signin {
+.form-login {
     max-width: 350px;
+}
+
+.form-margin {
+    margin: 5% 0;
 }
 
 .data-list .card {
@@ -108,8 +112,16 @@ header .user .btn:hover {
     border: none;
     background-color: #2EE59D;
     box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-    color: #fff;
     transform: scale(1.03);
+}
+
+.user .count-in-basket {
+    color: #00BC72;
+}
+
+header .user .btn:hover .count-in-basket {
+    transition: all 500ms;
+    color: #fff;
 }
 
 header .bottom-row ul {
@@ -187,7 +199,7 @@ header .modules li:hover::after {
 }
 
 .item-cards .item-card .product-name {
-    max-height: 60px;
+    max-height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -338,6 +350,45 @@ header .modules li:hover::after {
 .view-container section {
     margin-top: 10px;
 }
+
+.empty-block {
+    text-align: center;
+    margin-top: 100px;
+}
+
+.empty-block h3 {
+    font-size: 60px;
+}
+
+.empty-block span {
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+.empty-block a {
+    color: #2ee59d;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.basket-row {
+    cursor: pointer;
+}
+
+.basket-row:hover {
+    transition: background-color 300ms;
+    background-color: #CCFFEB;
+}
+
+.href-dis {
+    pointer-events: none;
+}
+
+.out-of-stock {
+    background-color: #E4E4E4;
+}
+
+
 
 
 

@@ -13,7 +13,7 @@ class DB
         $this->pdo = new \PDO("mysql: host={$hostname};dbname={$database}", $login, $password);
     }
 
-    public function select($tableName, $fieldsList = "*", $conditionArray = null, $operatorName = '=') {
+    public function select($tableName, $fieldsList = "*", $conditionArray = null, $operatorName = 'LIKE') {
         if(is_string($fieldsList))
             $fieldsListString = $fieldsList;
         if(is_array($fieldsList))

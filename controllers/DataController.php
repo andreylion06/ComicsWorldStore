@@ -14,6 +14,9 @@ class DataController extends Controller
 {
     public static function indexAction($controller, $moduleName) {
         $rows = DataTable::getItems($moduleName);
+        if(!isset($rows))
+            return $controller->render('views/main/exception-no-content.php');
+
         foreach ($rows as &$row)
             $row += array('products_count' => count(self::getProductsIn($moduleName, $row['id'])));
 
