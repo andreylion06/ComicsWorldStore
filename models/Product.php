@@ -60,11 +60,13 @@ class Product
         $row["{$column}_id"] = 1;
         self::updateProduct($row['id'], $row);
     }
-    public static function search($searchString) {
-        $rows = Core::getInstance()->db->select(self::$tableName, '*', [
-            'name' => "%{$searchString}%",
-            'visible' => "1"
-        ], 'LIKE');
+    public static function search($searchString, $all) {
+        $conditionsArray = [
+            'name' => "%{$searchString}%"
+        ];
+        if(!$all)
+            $conditionsArray += ['visible' => 1];
+        $rows = Core::getInstance()->db->select(self::$tableName, '*', $conditionsArray, 'LIKE');
         return array_reverse($rows);
     }
 }

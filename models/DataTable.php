@@ -20,6 +20,13 @@ class  DataTable {
         else
             return null;
     }
+    public static function getNameById($tableName, $id) {
+        $row = self::getById($tableName, $id);
+        if(!empty($row))
+            return $row['name'];
+        else
+            return null;
+    }
     public static function deleteItem($tableName, $id) {
         $rows = Core::getInstance()->db->delete($tableName, [
             'id' => $id

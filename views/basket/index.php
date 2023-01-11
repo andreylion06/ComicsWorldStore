@@ -25,10 +25,11 @@
     </thead>
     <?php
     $index = 1;
+    $reduceMarker = false;
     foreach ($basket['products'] as $row) : ?>
     <tr class="basket-row <?php
-        if($row['count'] == 0) {
-            echo 'out-of-stock';
+        if($row['count'] > $row['product']['count']) {
+            echo 'table-danger';
         }
     ?>" onclick="
             window.location='/product/view/<?=$row['product']['id']?>';
@@ -55,11 +56,24 @@
         </td>
         <td><?=$row['product']['name'] ?></td>
         <td><?=$row['product']['price'] ?> hrn.</td>
-        <td><?=$row['count'] ?></td>
+        <td><?=$row['count']?>
+<!--            <form action="" method="post">-->
+<!--                <input type="number" readonly min="0" max="--><?//=$row['product']['count']?><!--" value="--><?//=$row['count']?><!--" class="form-control" onclick=-->
+<!--                "if (!e) var e = window.event;-->
+<!--                e.cancelBubble = true;-->
+<!--                if (e.stopPropagation) e.stopPropagation();"-->
+<!--                >-->
+<!--            </form>-->
+        </td>
+        <?php
+            if($row['count'] > $row['product']['count']) {
+                $reduceMarker = true;
+            }
+        ?>
         <td><?=$row['product']['price'] * $row['count'] ?> hrn.</td>
         <td><?php
-            if($row['count'] == 0)
-                echo 'Out of stock';
+            if($row['count'] > $row['product']['count'])
+                echo 'Not enough stock';
             else
                 echo 'In stock';
             ?></td>
@@ -76,7 +90,13 @@
             <th></th>
             <th></th>
             <th><?=$basket['total_price'] ?> hrn.</th>
-            <th></th>
+            <th>
+                <?php if($reduceMarker) : ?>
+                    <a class="btn btn-danger" href="/basket/reduce">Reduce to available quantity</a>
+                <?php else : ?>
+                    <a class="btn btn-primary">Order</a>
+                <?php endif; ?>
+            </th>
         </tr>
     </tfoot>
 </table>

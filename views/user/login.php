@@ -4,7 +4,7 @@
 \core\Core::getInstance()->pageParams['title'] = 'Login';
 ?>
 
-<h1 class="h3 mb-3 fw-normal text-center form-margin">Log in to your account</h1>
+<h1 class="h3 mb-4 fw-normal text-center form-margin">Log in to your account</h1>
 
 <div class="form-login w-100 m-auto">
     <form action="" method="post">

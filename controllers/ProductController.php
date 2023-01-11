@@ -20,7 +20,7 @@ class ProductController extends Controller
         else
             $page = 1;
         $countPerPage = 12;
-        $rows = Product::search($searchString);
+        $rows = Product::search($searchString, User::isAdmin());
         $products = Product::getOnePage($rows, $page, $countPerPage);
         $totalNumber = count($rows);
         if(!isset($products))

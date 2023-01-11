@@ -167,9 +167,9 @@ else
                     <li><a href="/">Main</a></li>
                     <li><a href="/product">All Products</a></li>
                     <li><a href="/category">Categories</a></li>
+                    <li><a href="/brand">Brands</a></li>
                     <li><a href="/theme">Theme</a></li>
                     <li><a href="/personage">Personages</a></li>
-                    <li><a href="/brand">Brands</a></li>
                     <li><a href="">About Us</a></li>
                 </ul>
             </div>

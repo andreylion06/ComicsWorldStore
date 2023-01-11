@@ -1,6 +1,7 @@
 <?php
 /** @var array $product */
 
+use models\DataTable;
 use models\User;
 
 ?>
@@ -53,24 +54,34 @@ use models\User;
             </div>
             <div class="row mb-1">
                 <section>
-                    <div class="row-info">
-                        <span class="fw-bold">Доставка</span>
+                    <div class="row-info-mg">
+                        <span class="fw-bold">Categories</span>
                     </div>
-                    <div class="row-delivery row-info">
+                    <div class="row-info row-info-mg">
+                        <a href="/category/view/<?=$product['category_id']?>" class="category">
+                            <?=DataTable::getNameById('category', $product['category_id'])?>
+                        </a>
+                        <a href="/brand/view/<?=$product['brand_id']?>" class="category">
+                            <?=DataTable::getNameById('brand', $product['brand_id'])?>
+                        </a>
+                        <a href="/theme/view/<?=$product['theme_id']?>" class="category">
+                            <?=DataTable::getNameById('theme', $product['theme_id'])?>
+                        </a>
+                        <a href="/personage/view/<?=$product['personage_id']?>" class="category">
+                            <?=DataTable::getNameById('personage', $product['personage_id'])?>
+                        </a>
+                    </div>
+                    <div class="row-info-mg">
+                        <span class="fw-bold">Delivery</span>
+                    </div>
+                    <div class="row-info row-info-mg">
                         <a href="https://novaposhta.ua/">
                             <img src="../../static/layout/nova_poshta.svg" class="icon"/>
                             <span class="name">Nova Poshta</span>
                             <span class="description">you can pick it up within <b>1-3 days</b> at the branch</span>
                         </a>
                     </div>
-                    <div class="row-delivery row-info">
-                        <a href="https://www.ukrposhta.ua/ua">
-                            <img src="../../static/layout/ukr_pochta.png" class="icon"/>
-                            <span class="name">Ukr Poshta</span>
-                            <span class="description">you can pick it up within <b>3-7 days</b> at the branch</span>
-                        </a>
-                    </div>
-                    <div class="row-delivery row-info">
+                    <div class="row-info row-info-mg">
                         <a href="https://novaposhta.ua/dostavka_courier">
                             <img src="../../static/layout/car.svg" class="icon"/>
                             <span class="name">By courier</span>
@@ -79,10 +90,10 @@ use models\User;
                     </div>
                 </section>
                 <section>
-                    <div class="row-info">
+                    <div class="row-info-mg">
                         <span class="fw-bold">Payment</span>
                     </div>
-                    <div class="row-delivery row-info">
+                    <div class="row-info row-info-mg">
                         <a>
                             <img src="../../static/layout/card.svg" class="icon"/>
                             <span class="name">Card</span>
@@ -99,10 +110,14 @@ use models\User;
     <div class="row descriptions">
         <div class="col-12">
             <div class="brief-description">
-                <span class="title">Brief description:</span>
-                <span class="description"><?=$product['short_description']?></span>
-                <span class="title">Full description:</span>
-                <span class="description"><?=$product['description']?></span>
+                <?php if(isset($product['short_description'])) : ?>
+                    <span class="title">Brief description:</span>
+                    <span class="description"><?=$product['short_description']?></span>
+                <?php endif; ?>
+                <?php if(isset($product['description'])) : ?>
+                    <span class="title">Full description:</span>
+                    <span class="description"><?=$product['description']?></span>
+                <?php endif; ?>
             </div>
         </div>
     </div>

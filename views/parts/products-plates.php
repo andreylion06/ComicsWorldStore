@@ -29,7 +29,7 @@ use models\User;
                     <?php
                     $classBtn = "";
                     $disableLink = "";
-                    if ($row['count'] == Basket::getCountOfId($row['id'])) {
+                    if ($row['count'] == Basket::getCountOfId($row['id']) || $row['count'] == 0) {
                         $classBtn = "disabled";
                         $disableLink = "href-dis";
                     }

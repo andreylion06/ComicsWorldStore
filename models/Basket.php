@@ -4,52 +4,94 @@
 namespace models;
 
 
+use core\Core;
+
 class Basket
 {
+    protected static $tableName = 'basket';
     public static function addProduct($product_id, $count = 1) {
-        if (!is_array($_SESSION['basket']))
-            $_SESSION['basket'] = [];
-        $row = Product::getById($product_id);
-        if($_SESSION['basket'][$product_id] + $count <= $row['count'])
-            $_SESSION['basket'][$product_id] += $count;
+        $rowProduct = Product::getById($product_id);
+        $user_id = User::getCurrentAuthenticatedUser()['id'];
+        if(isset($rowProduct)) {
+            $rowBasket = Core::getInstance()->db->select(self::$tableName, '*', [
+                'user_id' => $user_id,
+                'product_id' => $product_id
+            ])[0];
+            if(isset($rowBasket)) {
+                Core::getInstance()->db->update(self::$tableName, [
+                    'count' => $rowBasket['count'] + $count
+                ], [
+                    'id' => $rowBasket['id']
+                ]);
+            }
+            else {
+                Core::getInstance()->db->insert(self::$tableName, [
+                    'user_id' => $user_id,
+                    'product_id' => $rowProduct['id'],
+                    'count' => $count
+                ]);
+            }
+        }
     }
     public static function getProducts() {
-        if (is_array($_SESSION['basket'])) {
-            $result = [];
-            $products = [];
-            $totalPrice = 0;
-            foreach ($_SESSION['basket'] as $product_id => $count) {
-                $product = Product::getById($product_id);
-                if($product['count'] == 0)
-                    $count = 0;
-                $totalPrice += $product['price'] * $count;
-                $products [] = ['product' => $product, 'count' => $count];
-            }
-            $result['products'] = $products;
-            $result['total_price'] = $totalPrice;
-            return $result;
+        $rows = Core::getInstance()->db->select(self::$tableName, '*', [
+            'user_id' => User::getCurrentAuthenticatedUser()['id']
+        ]);
+        $result = [];
+        $products = [];
+        $totalPrice = 0;
+        foreach ($rows as $row) {
+            $product = Product::getById($row['product_id']);
+            $products [] = ['product' => $product, 'count' => $row['count']];
+            if($row['count'] > $product['count'])
+                continue;
+            $totalPrice += $product['price'] * $row['count'];
         }
-        return null;
+        $result['products'] = $products;
+        $result['total_price'] = $totalPrice;
+        return $result;
+    }
+    public static function getCountOfId($product_id) {
+        $rows = Core::getInstance()->db->select(self::$tableName, '*', [
+            'user_id' => User::getCurrentAuthenticatedUser()['id'],
+            'product_id' => $product_id
+        ]);
+        if(isset($rows))
+            return $rows[0]['count'];
     }
     public static function clear() {
-        unset($_SESSION['basket']);
+        Core::getInstance()->db->delete(self::$tableName, [
+            'user_id' => User::getCurrentAuthenticatedUser()['id']
+        ]);
     }
-    public static function isItemInBasket($id) {
-        if(!User::isUserAuthenticated())
-            return null;
-        return isset($_SESSION['basket'][$id]);
-    }
-    public static function removeItem($id) {
-        unset($_SESSION['basket'][$id]);
+    public static function removeItem($product_id) {
+        Core::getInstance()->db->delete(self::$tableName, [
+            'user_id' => User::getCurrentAuthenticatedUser()['id'],
+            'product_id' => $product_id
+        ]);
     }
     public static function getCountItems() {
-        $rows = self::getProducts();
-        if(isset($rows['products']))
-            return array_sum(array_column($rows['products'], 'count'));
+        $rows = Core::getInstance()->db->select(self::$tableName, '*', [
+            'user_id' => User::getCurrentAuthenticatedUser()['id']
+        ]);
+        if(isset($rows))
+            return array_sum(array_column($rows, 'count'));
         else
             return 0;
     }
-    public static function getCountOfId($id) {
-        return $_SESSION['basket'][$id];
+    public static function reduceOverflowItems() {
+        $rows = Core::getInstance()->db->select(self::$tableName, '*', [
+            'user_id' => User::getCurrentAuthenticatedUser()['id']
+        ]);
+        foreach ($rows as $rowBasket) {
+            $rowProduct = Product::getById($rowBasket['product_id']);
+            if($rowBasket['count'] > $rowProduct['count']) {
+                Core::getInstance()->db->update(self::$tableName, [
+                    'count' => $rowProduct['count']
+                ], [
+                    'id' => $rowBasket['id']
+                ]);
+            }
+        }
     }
 }

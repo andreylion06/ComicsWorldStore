@@ -11,9 +11,11 @@ use models\User;
 
 class BasketController extends Controller
 {
-    public function indexAction() {
+    public function indexAction($params) {
         if(!User::isUserAuthenticated())
             return $this->redirect('/user/login');
+
+        $id = intval($params[0]);
 
         $basket = Basket::getProducts();
         return $this->render(null, [
@@ -37,6 +39,10 @@ class BasketController extends Controller
 
         $id = intval($params[0]);
         Basket::removeItem($id);
+        $this->redirect('/basket');
+    }
+    public function reduceAction() {
+        Basket::reduceOverflowItems();
         $this->redirect('/basket');
     }
 }

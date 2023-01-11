@@ -5,7 +5,7 @@
 \core\Core::getInstance()->pageParams['title'] = 'Реєстрація на сайті';
 ?>
 
-<h1 class="h3 mb-3 fw-normal text-center form-margin">New User Registration</h1>
+<h1 class="h3 mb-4 fw-normal text-center form-margin">New User Registration</h1>
 
 <div class="w-50 m-auto mt-3">
     <form  action="" method="post">
