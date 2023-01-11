@@ -1,8 +1,8 @@
 <?php
 /** @var array $basket */
 ?>
-<h1 class="mb-5">Basket</h1>
 
+<h1 class="h3 mb-4 fw-normal">Basket</h1>
 <?php if(count($basket['products']) == 0) : ?>
     <div class="empty-block">
         <h3 class="h3">Basket is empty :(</h3>
@@ -27,7 +27,7 @@
     $index = 1;
     $reduceMarker = false;
     foreach ($basket['products'] as $row) : ?>
-    <tr class="basket-row <?php
+    <tr class="table-row-dyn <?php
         if($row['count'] > $row['product']['count']) {
             echo 'table-danger';
         }
@@ -57,13 +57,6 @@
         <td><?=$row['product']['name'] ?></td>
         <td><?=$row['product']['price'] ?> hrn.</td>
         <td><?=$row['count']?>
-<!--            <form action="" method="post">-->
-<!--                <input type="number" readonly min="0" max="--><?//=$row['product']['count']?><!--" value="--><?//=$row['count']?><!--" class="form-control" onclick=-->
-<!--                "if (!e) var e = window.event;-->
-<!--                e.cancelBubble = true;-->
-<!--                if (e.stopPropagation) e.stopPropagation();"-->
-<!--                >-->
-<!--            </form>-->
         </td>
         <?php
             if($row['count'] > $row['product']['count']) {

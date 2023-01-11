@@ -7,7 +7,7 @@ use utils\Filter;
 class Product
 {
     protected static $tableName = 'product';
-    public static function addProduct($row, $filePath) {
+    public static function add($row, $filePath) {
         $fieldsList = ['name', 'photo', 'category_id', 'theme_id', 'personage_id',
             'brand_id', 'price', 'count', 'short_description', 'description', 'visible'];
         $row = Filter::filterArray($row, $fieldsList);
@@ -15,12 +15,12 @@ class Product
         Core::getInstance()->db->insert(self::$tableName, $row);
     }
 
-    public static function deleteProduct($id) {
+    public static function delete($id) {
         Core::getInstance()->db->delete(self::$tableName, [
             'id' => $id
         ]);
     }
-    public static function updateProduct($id, $row) {
+    public static function update($id, $row) {
         $fieldaslist = ['name', 'photo', 'category_id', 'theme_id', 'personage_id',
             'brand_id', 'price', 'count', 'short_description', 'description', 'visible'];
         $row = Filter::filterArray($row, $fieldaslist);
@@ -58,7 +58,7 @@ class Product
     public static function setDefaultForNull($column, $id) {
         $row = self::getById($id);
         $row["{$column}_id"] = 1;
-        self::updateProduct($row['id'], $row);
+        self::update($row['id'], $row);
     }
     public static function search($searchString, $all) {
         $conditionsArray = [

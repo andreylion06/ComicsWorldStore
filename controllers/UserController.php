@@ -5,6 +5,7 @@ namespace controllers;
 
 use core\Controller;
 use core\Core;
+use models\Order;
 use models\User;
 
 class UserController extends Controller
@@ -66,5 +67,25 @@ class UserController extends Controller
     public function logoutAction() {
         User::logoutUser();
         $this->redirect('/');
+    }
+
+    public function indexAction() {
+        if(User::isAdmin())
+            $orders = Order::getOrdersInProcess();
+        else
+            $orders = Order::getUserOrdersById(User::getCurrentAuthenticatedUser()['id']);
+
+        return $this->render(null, [
+            'orders' => $orders
+        ]);
+    }
+
+    public function approveAction($params) {
+        if (!User::isAdmin())
+            return $this->error(403);
+
+        $orderId = intval($params[0]);
+        Order::approve($orderId);
+        $this->redirect("/user");
     }
 }

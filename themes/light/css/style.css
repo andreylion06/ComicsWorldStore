@@ -389,17 +389,18 @@ header .modules li:hover::after {
     font-weight: 600;
 }
 
-.basket-row {
+.table-row-dyn {
     cursor: pointer;
 }
 
-.basket-row:hover {
+.table-row-dyn:hover {
     transition: background-color 300ms;
     background-color: #CCFFEB;
 }
 
 .href-dis {
     pointer-events: none;
+    cursor: default;
 }
 
 

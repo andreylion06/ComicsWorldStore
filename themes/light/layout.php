@@ -144,7 +144,7 @@ else
                 ?>
                 <div class="user">
                     <?php if (User::isUserAuthenticated()) : ?>
-                        <a href="" class="btn btn-light text-dark  me-2 <?php if (User::isAdmin()) echo 'admin-label'?>">Hello, <?=$user['firstname']?></a>
+                        <a href="/user" class="btn btn-light text-dark  me-2 <?php if (User::isAdmin()) echo 'admin-label'?>">Hello, <?=$user['firstname']?></a>
                         <a href="/basket" class="btn btn-light text-dark me-2">
                             Basket
                             <span class="count-in-basket">

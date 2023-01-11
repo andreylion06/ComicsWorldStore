@@ -28,6 +28,10 @@ class OrderController extends Controller
                     $errors[$key] = ucfirst(str_replace('_', ' ', $key)).' is not set';
                 }
             }
+
+            if(!preg_match("/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/", $_POST['phone'])) {
+                $errors['phone'] = 'Phone number is invalid';
+            }
             if(count($errors) > 0) {
                 $model = $_POST;
                 return $this->render(null, [
@@ -39,6 +43,7 @@ class OrderController extends Controller
                 $row += ['user_id' => User::getCurrentAuthenticatedUser()['id']];
                 $row += ['date' => date("Y-m-d H:i:s")];
                 $row += ['products' => Basket::getProducts()['products']];
+                $row += ['total_price' => Basket::getProducts()['total_price']];
 
                 Order::addOrder($row);
                 Basket::clear();
