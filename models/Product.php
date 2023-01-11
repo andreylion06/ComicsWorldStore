@@ -8,9 +8,9 @@ class Product
 {
     protected static $tableName = 'product';
     public static function addProduct($row, $filePath) {
-        $fieldaslist = ['name', 'photo', 'category_id', 'theme_id', 'personage_id',
+        $fieldsList = ['name', 'photo', 'category_id', 'theme_id', 'personage_id',
             'brand_id', 'price', 'count', 'short_description', 'description', 'visible'];
-        $row = Filter::filterArray($row, $fieldaslist);
+        $row = Filter::filterArray($row, $fieldsList);
         $row += ['photo' => $filePath];
         Core::getInstance()->db->insert(self::$tableName, $row);
     }

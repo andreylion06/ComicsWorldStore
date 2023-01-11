@@ -69,7 +69,7 @@ class ProductController extends Controller
             if (empty($errors)) {
                 $fileName = Photo::loadPhoto('product', $_FILES['file']['tmp_name']);
                 Product::addProduct($_POST, $fileName);
-                return $this->redirect('/product');
+                $this->redirect('/product');
             } else {
                 $model = $_POST;
                 return $this->render(null, [
@@ -110,7 +110,7 @@ class ProductController extends Controller
                     Product::updateProduct($id, $_POST);
                     if(!empty($_FILES['file']['tmp_name']))
                         Photo::changePhoto('product', $id, $_FILES['file']['tmp_name']);
-                    return $this->redirect("/product");
+                    $this->redirect("/product");
                 } else {
                     $model = $_POST;
                     return $this->render(null, [
@@ -141,7 +141,7 @@ class ProductController extends Controller
         if($id > 0) {
             Photo::deletePhoto('product', $id);
             Product::deleteProduct($id);
-            return $this->redirect('/product/index');
+            $this->redirect('/product/index');
         } else
             return $this->error(403);
     }

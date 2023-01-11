@@ -139,7 +139,6 @@ else
                 </form>
                 <?php
                     if(isset($_POST['btn-search'])) {
-                        var_dump($_POST);
                         header("Location: /product/index?search={$_POST['search']}");
                     }
                 ?>

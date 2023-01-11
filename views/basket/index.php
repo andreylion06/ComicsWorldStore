@@ -94,7 +94,7 @@
                 <?php if($reduceMarker) : ?>
                     <a class="btn btn-danger" href="/basket/reduce">Reduce to available quantity</a>
                 <?php else : ?>
-                    <a class="btn btn-primary">Order</a>
+                    <a class="btn btn-primary" href="/order">Order</a>
                 <?php endif; ?>
             </th>
         </tr>

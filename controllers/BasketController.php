@@ -13,7 +13,7 @@ class BasketController extends Controller
 {
     public function indexAction($params) {
         if(!User::isUserAuthenticated())
-            return $this->redirect('/user/login');
+            $this->redirect('/user/login');
 
         $id = intval($params[0]);
 
@@ -24,7 +24,7 @@ class BasketController extends Controller
     }
     public function addAction($params) {
         if(!User::isUserAuthenticated())
-            return $this->redirect('/user/login');
+            $this->redirect('/user/login');
 
         $id = intval($params[0]);
         $product = Product::getById($id);
@@ -35,7 +35,7 @@ class BasketController extends Controller
     }
     public function deleteAction($params) {
         if(!User::isUserAuthenticated())
-            return $this->redirect('/user/login');
+            $this->redirect('/user/login');
 
         $id = intval($params[0]);
         Basket::removeItem($id);
