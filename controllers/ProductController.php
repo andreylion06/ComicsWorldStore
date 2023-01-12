@@ -110,7 +110,7 @@ class ProductController extends Controller
                     Product::update($id, $_POST);
                     if(!empty($_FILES['file']['tmp_name']))
                         Photo::changePhoto('product', $id, $_FILES['file']['tmp_name']);
-                    $this->redirect("/product");
+                    $this->redirect("/product/view/{$id}");
                 } else {
                     $model = $_POST;
                     return $this->render(null, [

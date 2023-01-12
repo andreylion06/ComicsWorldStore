@@ -45,9 +45,6 @@ class Pagination
             $next = 'disabled';
             $previous = 'disabled';
         }
-//        var_dump($totalNumber);
-//        var_dump($count);
-//        die;
         return [
             'previous' => $previous,
             'paginationNums' => $paginationNums,

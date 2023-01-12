@@ -4,6 +4,8 @@ use models\Order;
 use models\User;
 
 /** @var array $orders */
+
+\core\Core::getInstance()->pageParams['title'] = 'Your orders';
 ?>
 
 <h1 class="h3 mb-4 fw-normal">Orders</h1>
@@ -50,18 +52,16 @@ use models\User;
                     <?php
                         $items = Order::getOrderItems($row['id']);
                         $output = "";
-                    echo '<pre>';
-//                    var_dump($items);
-                        foreach ($items as $item) {
-//                            $output += "{$item['product']['name']} * {$item['count']}";
-
-                            var_dump($item);
+                        for ($i = 0; $i <= count($items) - 1; $i++) {
+                            $name = substr($items[$i]['product']['name'], 0, 30).'...';
+                            $id = $items[$i]['product']['id'];
+                            $output .= "<a href='/product/view/{$id}' class='styled'>{$items[$i]['count_in_order']} x {$name}</a><br>";
                         }
-//                        echo $output;
+                        echo $output;
                     ?>
                 </td>
                 <td>
-                    <form action="" method="post">
+                    <form action="" method="post" class="form-status">
                         <a class="btn
                         <?php
                         if(!User::isAdmin())

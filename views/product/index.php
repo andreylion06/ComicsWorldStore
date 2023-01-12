@@ -5,6 +5,8 @@
 /** @var string $searchString */
 
 use models\User;
+
+\core\Core::getInstance()->pageParams['title'] = 'Product list';
 ?>
 
 <h1 class="h3 mb-4 fw-normal text-center">Product list</h1>

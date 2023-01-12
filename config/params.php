@@ -1,5 +1,5 @@
 <?php
 $pageParams = [
-    'siteName' => 'Інтернет-магазин',
-    'title' => 'Головна сторінка'
+    'siteName' => 'Comics World',
+    'title' => 'Home'
 ];

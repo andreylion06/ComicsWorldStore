@@ -4,18 +4,21 @@
 use models\DataTable;
 use models\User;
 
+\core\Core::getInstance()->pageParams['title'] = 'View product';
 ?>
 <div class="container view-container">
     <div class="row">
-        <div class="col-3 col-img">
+        <div class="col-4 col-img">
             <?php $filePath = 'files/product/' . $product['photo']; ?>
             <?php if (is_file($filePath)) : ?>
-                <img src="/<?= $filePath ?>" class="product-view-avatar">
+                <a data-fancybox data-src="/<?= $filePath ?>">
+                    <img src="/<?= $filePath ?>" class="product-view-avatar">
+                </a>
             <?php else : ?>
                 <img src="/static/images/no-image.jpg" class="product-view-avatar">
             <?php endif; ?>
         </div>
-        <div class="col-9 col-info">
+        <div class="col-8 col-info">
             <div class="row mb-1">
                 <h3 class="h4"><?= $product['name'] ?></h3>
             </div>
@@ -57,7 +60,7 @@ use models\User;
                     <div class="row-info-mg">
                         <span class="fw-bold">Categories</span>
                     </div>
-                    <div class="row-info row-info-mg">
+                    <div class="row-info row-info-mg categories">
                         <a href="/category/view/<?=$product['category_id']?>" class="category">
                             <?=DataTable::getNameById('category', $product['category_id'])?>
                         </a>

@@ -7,6 +7,8 @@
 /** @var array $personages */
 /** @var array $brands */
 
+\core\Core::getInstance()->pageParams['title'] = 'Editing product';
+
 if(isset($model)) $row = $model;
 ?>
 

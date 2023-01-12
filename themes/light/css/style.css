@@ -95,10 +95,16 @@ header .top-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 header .search-module {
     width: 20vw;
+}
+
+header .user {
+    display: flex;
+    justify-content: center;
 }
 
 header .user .btn {
@@ -128,8 +134,37 @@ header .bottom-row ul {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
     font-size: 20px;
     margin-top: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+    header .top-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+                "logo search" "user user";
+    }
+
+    .logo {
+        grid-area: logo;
+    }
+
+    .search {
+        grid-area: search;
+        margin-left: auto;
+    }
+
+    .user {
+        grid-area: user;
+        margin-top: 20px;
+    }
+
+    header .bottom-row ul {
+        justify-content: center;
+    }
 }
 
 header .modules li::after {
@@ -267,9 +302,7 @@ header .modules li:hover::after {
 
 .product-view-avatar {
     width: 100%;
-    padding: 0 100px 50px 0;
-    object-fit: contain;
-    object-position: 50% 20%;
+    padding: 0 10px 10px 0;
 }
 
 .col-img {
@@ -302,6 +335,13 @@ header .modules li:hover::after {
 .row-info:hover {
     background-color: #f3f3f7;
     transition: background-color 300ms;
+}
+
+.row-info.categories {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3px 5px;
 }
 
 .row-info .name {
@@ -403,8 +443,38 @@ header .modules li:hover::after {
     cursor: default;
 }
 
+a.styled:hover {
+    text-decoration: underline;
+}
 
+.form-status .btn-warning:hover {
+    transition: 500ms;
+    background-color: #2ee59d;
+    border-color: #00BC72;
+}
 
+.main-photo {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
 
+.main-title, .main-title-desc {
+    display: block;
+    position: relative;
+    animation-name: titleAppearance;
+    animation-duration: 1s;
+}
 
+.main-title-desc {
+    color: rgb(46, 229, 157);
+}
 
+@keyframes titleAppearance {
+    from {
+        left: -400px;
+    }
+    to {
+        left: 0;
+    }
+}

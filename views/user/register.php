@@ -2,7 +2,7 @@
 /** @var array $errors */
 /** @var array $model */
 
-\core\Core::getInstance()->pageParams['title'] = 'Реєстрація на сайті';
+\core\Core::getInstance()->pageParams['title'] = 'Registration';
 ?>
 
 <h1 class="h3 mb-4 fw-normal text-center form-margin">New User Registration</h1>

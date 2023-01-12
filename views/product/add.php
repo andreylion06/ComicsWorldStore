@@ -9,6 +9,8 @@
 /** @var int|null $personage_id */
 /** @var array $brands */
 /** @var int|null $brand_id */
+
+\core\Core::getInstance()->pageParams['title'] = 'Adding product';
 ?>
 
 <h1 class="h3 mb-4 fw-normal text-center">Adding product</h1>

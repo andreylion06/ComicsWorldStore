@@ -1,6 +1,8 @@
 <?php
 /** @var array $moduleName */
 /** @var array $row */
+
+\core\Core::getInstance()->pageParams['title'] = "Deleting {$moduleName}";
 ?>
 
 <div class="alert alert-danger" role="alert">

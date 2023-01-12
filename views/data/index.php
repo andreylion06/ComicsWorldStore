@@ -4,9 +4,11 @@
 
 use models\User;
 
-$lTableName = ucfirst($moduleName);
+$lModuleName = ucfirst($moduleName);
+
+\core\Core::getInstance()->pageParams['title'] = "{$lModuleName}";
 ?>
-<h1 class="h3 mb-4 fw-normal text-center"><?=$lTableName?> list</h1>
+<h1 class="h3 mb-4 fw-normal text-center"><?=$lModuleName?> list</h1>
 <?php if(User::isAdmin()) : ?>
     <div class="mb-3">
         <a href="/<?=$moduleName?>/add" class="btn btn-success">Add a <?=$moduleName?></a>

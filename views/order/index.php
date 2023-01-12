@@ -3,8 +3,7 @@
 /** @var array $user */
 /** @var array $errors */
 
-//var_dump($errors);
-//die;
+\core\Core::getInstance()->pageParams['title'] = 'Placing the order';
 ?>
 
 <h1 class="h3 mb-4 fw-normal text-center form-margin">Making order</h1>
