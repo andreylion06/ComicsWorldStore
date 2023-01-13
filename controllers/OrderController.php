@@ -36,6 +36,7 @@ class OrderController extends Controller
                 $model = $_POST;
                 return $this->render(null, [
                     'user' => $user,
+                    'model' => $_POST,
                     'errors' => $errors
                 ]);
             } else {

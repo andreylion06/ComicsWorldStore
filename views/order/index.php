@@ -2,6 +2,7 @@
 
 /** @var array $user */
 /** @var array $errors */
+/** @var array $model */
 
 \core\Core::getInstance()->pageParams['title'] = 'Placing the order';
 ?>
@@ -23,7 +24,7 @@
             <div class="row">
                 <div class="col mb-1">
                     <label for="phone" class="form-label">Phone Number</label>
-                    <input type="phone" class="form-control" name="phone" id="login" value="" aria-describedby="phoneHelp">
+                    <input type="phone" class="form-control" name="phone" id="phone" value="<?=$model['phone']?>" aria-describedby="phoneHelp">
                     <?php if (!empty($errors['phone'])): ?>
                         <div id="phoneHelp" class="form-text text-danger"><?=$errors['phone']?></div>
                     <?php endif; ?>
@@ -32,14 +33,14 @@
             <div class="row">
                 <div class="col mb-1">
                     <label for="city" class="form-label">City</label>
-                    <input type="text" class="form-control" name="city" id="city" aria-describedby="cityHelp">
+                    <input type="text" class="form-control" name="city" id="city" aria-describedby="cityHelp" value="<?=$model['city']?>">
                     <?php if (!empty($errors['city'])): ?>
                         <span id="cityHelp" class="form-text text-danger"><?=$errors['city']?></span>
                     <?php endif; ?>
                 </div>
                 <div class="col mb-1">
                     <label for="post_number" class="form-label">Post office number</label>
-                    <input type="text" class="form-control" name="post_number" id="post_number" value="" aria-describedby="post_numberHelp">
+                    <input type="text" class="form-control" name="post_number" id="post_number" value="<?=$model['post_number']?>" aria-describedby="post_numberHelp">
                     <?php if (!empty($errors['post_number'])): ?>
                         <span id="post_numberHelp" class="form-text text-danger"><?=$errors['post_number'] ?></span>
                     <?php endif; ?>
