@@ -16,7 +16,7 @@ class OrderController extends Controller
         if(!User::isUserAuthenticated())
             $this->redirect('/user/login');
         $basket = Basket::getProducts();
-        if(count($basket['products']) == 0)
+        if(count($basket['products']) == 0 || !Basket::isEnoughStock())
             $this->redirect('/basket');
 
         $user = User::getCurrentAuthenticatedUser();

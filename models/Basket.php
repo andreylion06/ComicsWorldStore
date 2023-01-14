@@ -94,4 +94,16 @@ class Basket
             }
         }
     }
+    public static function isEnoughStock() {
+        $rows = Core::getInstance()->db->select(self::$tableName, '*', [
+            'user_id' => User::getCurrentAuthenticatedUser()['id']
+        ]);
+        foreach ($rows as $rowBasket) {
+            $rowProduct = Product::getById($rowBasket['product_id']);
+            if($rowBasket['count'] > $rowProduct['count']) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

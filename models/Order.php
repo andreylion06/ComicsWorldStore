@@ -20,13 +20,15 @@ class Order
 
         $orderId = self::getOrderId($rowOrder['user_id'], $rowOrder['date']);
         foreach ($products as $product) {
-            $product['product']['count'] -= $product['count'];
-            Product::update($product['product']['id'], $product['product']);
-            Core::getInstance()->db->insert('order_item', [
-                'order_id' => $orderId,
-                'product_id' => $product['product']['id'],
-                'count' => $product['count']
-            ]);
+            if($product['product']['count'] != 0) {
+                $product['product']['count'] -= $product['count'];
+                Product::update($product['product']['id'], $product['product']);
+                Core::getInstance()->db->insert('order_item', [
+                    'order_id' => $orderId,
+                    'product_id' => $product['product']['id'],
+                    'count' => $product['count']
+                ]);
+            }
         }
     }
     public static function getOrderId($userId, $dateTime) {
@@ -43,13 +45,13 @@ class Order
         $orders = Core::getInstance()->db->select(self::$tableName, '*', [
             'user_id' => $userId
         ]);
-        return $orders;
+        return array_reverse($orders);
     }
-    public static function getOrdersInProcess() {
+    public static function getOrdersByStatus($statusName) {
         $orders = Core::getInstance()->db->select(self::$tableName, '*', [
-            'status' => 'in processing'
+            'status' => $statusName
         ]);
-        return $orders;
+        return array_reverse($orders);
     }
     public static function approve($id) {
         Core::getInstance()->db->update(self::$tableName, [

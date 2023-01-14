@@ -71,7 +71,7 @@ class UserController extends Controller
 
     public function indexAction() {
         if(User::isAdmin())
-            $orders = Order::getOrdersInProcess();
+            $orders = Order::getOrdersByStatus('in processing');
         else
             $orders = Order::getUserOrdersById(User::getCurrentAuthenticatedUser()['id']);
 

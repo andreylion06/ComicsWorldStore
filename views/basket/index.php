@@ -1,5 +1,8 @@
 <?php
 /** @var array $basket */
+
+use models\Basket;
+
 ?>
 
 <h1 class="h3 mb-4 fw-normal">Basket</h1>
@@ -28,9 +31,10 @@
     $reduceMarker = false;
     foreach ($basket['products'] as $row) : ?>
     <tr class="table-row-dyn <?php
-        if($row['count'] > $row['product']['count']) {
+        if($row['count'] > $row['product']['count'])
             echo 'table-danger';
-        }
+        else if($row['count'] == 0)
+            echo 'table-secondary';
     ?>" onclick="
             window.location='/product/view/<?=$row['product']['id']?>';
             ">
@@ -67,6 +71,8 @@
         <td><?php
             if($row['count'] > $row['product']['count'])
                 echo 'Not enough stock';
+            else if ($row['product']['count'] == 0)
+                echo 'Not available';
             else
                 echo 'In stock';
             ?></td>
@@ -86,6 +92,8 @@
             <th>
                 <?php if($reduceMarker) : ?>
                     <a class="btn btn-danger" href="/basket/reduce">Reduce to available quantity</a>
+                <?php elseif(Basket::getCountItems() == 0) : ?>
+                    <a class="btn btn-primary disabled" href="/order">Order</a>
                 <?php else : ?>
                     <a class="btn btn-primary" href="/order">Order</a>
                 <?php endif; ?>
