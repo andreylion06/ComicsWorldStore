@@ -59,7 +59,7 @@ else
                                 ?>
                             </span>
                         </a>
-                        <a href="/user/logout" class="btn btn-light text-dark me-2">Вийти</a>
+                        <a href="/user/logout" class="btn btn-light text-dark me-2">Logout</a>
                     <?php else : ?>
                         <a href="/user/login" class="btn btn-light text-dark me-2 ">Login</a>
                         <a href="/user/register" class="btn btn-dark">Register</a>

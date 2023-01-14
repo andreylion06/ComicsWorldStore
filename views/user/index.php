@@ -45,7 +45,7 @@ use models\User;
                 <td><?=$index?></td>
                 <td><?=$row['date']?></td>
                 <td><?=$row['name']?></td>
-                <td><?=$row['phone']?></td>
+                <td><a href="tel: <?=$row['phone']?>"><?=$row['phone']?></a></td>
                 <td><?=$row['city']?></td>
                 <td><?=$row['post_number']?></td>
                 <td>
