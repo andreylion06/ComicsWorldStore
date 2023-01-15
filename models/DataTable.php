@@ -49,13 +49,15 @@ class  DataTable {
         $name = array_column($rows, 'name');
         array_multisort($name, SORT_ASC, $rows);
         // Move 'Default' item to the first place
+        $i = 0;
         foreach ($rows as $key => $value) {
             if($value['name'] === 'Default') {
-                $default = $value;
+                $default = $rows[$i];
                 unset($rows[$key]);
-                array_unshift($rows, $default);
+                $rows = array($default) + $rows;
                 break;
             }
+            $i++;
         }
         return $rows;
     }

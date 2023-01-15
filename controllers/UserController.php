@@ -65,11 +65,17 @@ class UserController extends Controller
     }
 
     public function logoutAction() {
+        if(!User::isUserAuthenticated())
+            $this->redirect('/user/login');
+
         User::logoutUser();
         $this->redirect('/');
     }
 
     public function indexAction() {
+        if(!User::isUserAuthenticated())
+            $this->redirect('/user/login');
+
         if(User::isAdmin())
             $orders = Order::getOrdersByStatus('in processing');
         else
