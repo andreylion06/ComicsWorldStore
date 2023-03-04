@@ -19,13 +19,9 @@ class Photo
         return $fileName;
     }
     public static function deletePhoto($nameOfSection, $id) {
-        $dataClasses = ['Category', 'Theme', 'Personage', 'Brand'];
         $className = ucfirst($nameOfSection);
         $methodName = 'getById';
-        if(in_array($className, $dataClasses))
-            $row = call_user_func('\\models\\DataTable'.'::'.$methodName, $className, $id);
-        else
-            $row = call_user_func('\\models\\'.$className.'::'.$methodName, $id);
+        $row = call_user_func('\\models\\'.$className.'::'.$methodName, $id);
         $photoPath = 'files/'.$nameOfSection.'/'.$row['photo'];
         if (is_file($photoPath))
             unlink($photoPath);
