@@ -74,5 +74,4 @@ class DB
         $res = $this->pdo->prepare("DELETE FROM {$tableName} {$wherePartString}");
         $res->execute($conditionArray);
     }
-
 }

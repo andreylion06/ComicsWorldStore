@@ -14,6 +14,21 @@ if(isset($model)) $row = $model;
 
 <h1 class="h3 mb-4 fw-normal text-center">Editing a product</h1>
 <form action="" method="post" enctype="multipart/form-data">
+    <div class="col-3">
+        <?php $filePath = 'files/product/'.$row['photo'];?>
+        <?php if (is_file($filePath)) : ?>
+            <img src="/<?=$filePath?>" class="card-img-top img-thumbnail">
+        <?php else : ?>
+            <img src="/static/images/no-image.jpg" class="card-img-top img-thumbnail">
+        <?php endif; ?>
+    </div>
+    <div class="mb-3">
+        <label for="file" class="form-label">A file with a photo for the product</label>
+        <input type="file" class="form-control" name="file" id="file" accept="image/jpeg" value=""/>
+        <?php if (!empty($errors['file'])): ?>
+            <div class="form-text text-danger"><?=$errors['file'] ?></div>
+        <?php endif; ?>
+    </div>
     <div class="mb-3">
         <label for="name" class="form-label">Product name</label>
         <input type="text" class="form-control" id="name" name="name" value="<?=$row['name']?>">
@@ -93,21 +108,6 @@ if(isset($model)) $row = $model;
         <textarea class="ck-editor form-control" name="description" id="description"><?=$row['description']?></textarea>
         <?php if (!empty($errors['description'])): ?>
             <div class="form-text text-danger"><?=$errors['description'] ?></div>
-        <?php endif; ?>
-    </div>
-    <div class="col-3">
-        <?php $filePath = 'files/product/'.$row['photo'];?>
-        <?php if (is_file($filePath)) : ?>
-            <img src="/<?=$filePath?>" class="card-img-top img-thumbnail">
-        <?php else : ?>
-            <img src="/static/images/no-image.jpg" class="card-img-top img-thumbnail">
-        <?php endif; ?>
-    </div>
-    <div class="mb-3">
-        <label for="file" class="form-label">A file with a photo for the product</label>
-        <input type="file" class="form-control" name="file" id="file" accept="image/jpeg" value=""/>
-        <?php if (!empty($errors['file'])): ?>
-            <div class="form-text text-danger"><?=$errors['file'] ?></div>
         <?php endif; ?>
     </div>
     <div class="mb-3">

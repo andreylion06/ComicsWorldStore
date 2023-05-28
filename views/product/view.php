@@ -114,11 +114,11 @@ use models\User;
         <div class="col-12">
             <div class="brief-description">
                 <?php if(isset($product['short_description'])) : ?>
-                    <span class="title">Brief description:</span>
+                    <h4 class="title">Brief description</h4>
                     <span class="description"><?=$product['short_description']?></span>
                 <?php endif; ?>
                 <?php if(isset($product['description'])) : ?>
-                    <span class="title">Full description:</span>
+                    <h4 class="title">Full description</h4>
                     <span class="description"><?=$product['description']?></span>
                 <?php endif; ?>
             </div>

@@ -111,13 +111,7 @@ class DataController extends Controller
             return $controller->error(403);
     }
     public static function viewAction($controller, $moduleName, $id) {
-        $row = DataTable::getById($moduleName, $id);
-        $products = self::getProductsIn($moduleName, $id);
-        return $controller->render(null, [
-            'moduleName' => $moduleName,
-            'row' => $row,
-            'products' => $products
-        ]);
+        return $controller->redirect("/product/index?$moduleName=$id");
     }
 
     public static function getProductsIn($moduleName, $id) {

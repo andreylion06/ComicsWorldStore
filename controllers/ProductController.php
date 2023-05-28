@@ -10,31 +10,79 @@ use models\DataTable;
 use models\Product;
 use models\User;
 use utils\Photo;
+use dbrequests\ProductRequests;
 
 class ProductController extends Controller
 {
     public function indexAction() {
-        $searchString = $_GET['search'];
         if(isset($_GET['page']))
             $page = intval($_GET['page']);
         else
             $page = 1;
         $countPerPage = 12;
-        $rows = Product::search($searchString, User::isAdmin());
+
+        $requestParams = ['search' => $_GET['search']];
+
+        if(!empty($_GET['category']))
+            $requestParams['category'] = $_GET['category'];
+
+        if(!empty($_GET['brand']))
+            $requestParams['brand'] = $_GET['brand'];
+
+        if(!empty($_GET['theme']))
+            $requestParams['theme'] = $_GET['theme'];
+
+        if(!empty($_GET['personage']))
+            $requestParams['personage'] = $_GET['personage'];
+
+        if(!empty($_GET['min']) && !empty($_GET['max'])) {
+            if($_GET['min'] > $_GET['max']) {
+                $tmp = $_GET['min'];
+                $_GET['min'] = $_GET['max'];
+                $_GET['max'] = $tmp;
+            }
+        }
+
+//        var_dump($_GET['min']."-min, max-".$_GET['max']);
+
+        if(!empty($_GET['min']))
+            $requestParams['min'] = $_GET['min'];
+
+        if(!empty($_GET['max']))
+            $requestParams['max'] = $_GET['max'];
+
+        if(!User::isAdmin())
+            $requestParams['visible'] = 1;
+
+//        var_dump($requestParams);
+//        die;
+        $rows = ProductRequests::Select($requestParams);
+//        $rows = Product::search($searchString, User::isAdmin());
+
         $products = Product::getOnePage($rows, $page, $countPerPage);
+        $categories = DataTable::getItems('category');
+        $brands = DataTable::getItems('brand');
+        $themes = DataTable::getItems('theme');
+        $personages = DataTable::getItems('personage');
         $totalNumber = count($rows);
-        if(!isset($products))
-            return $this->render('views/main/exception-no-content.php');
+
+
         if(($page - 1) * $countPerPage > $totalNumber || $page <= 0)
             return $this->error(404);
+
         return $this->render(null, [
             'products' => $products,
+            'categories' => $categories,
+            'brands' => $brands,
+            'themes' => $themes,
+            'personages' => $personages,
             'pagination' => [
                 'page' => $page,
                 'count' => $countPerPage,
                 'totalNumber' => $totalNumber
             ],
-            'searchString' => $searchString
+            'requestParams' => $requestParams,
+            'page' => $page
         ]);
         return $this->render();
     }
