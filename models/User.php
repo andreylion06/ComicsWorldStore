@@ -19,13 +19,6 @@ class User
     public static function hashPassword($password) {
         return md5($password);
     }
-//    public static function updateUser($id, $updatesArray) {
-//        $updatesArray = Filter::filterArray($updatesArray, ['firstname', 'lastname']);
-//        \core\Core::getInstance()->db->update(self::$tableName,
-//        $updatesArray, [
-//            'id' => $id
-//        ]);
-//    }
     public static function isLoginExists($login) {
         $user = \core\Core::getInstance()->db->select(self::$tableName, '*', [
            'login' => $login

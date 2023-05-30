@@ -10,7 +10,7 @@ use models\DataTable;
 use models\Product;
 use models\User;
 use utils\Photo;
-use dbrequests\ProductRequests;
+use dbrequests\Requests;
 
 class ProductController extends Controller
 {
@@ -43,8 +43,6 @@ class ProductController extends Controller
             }
         }
 
-//        var_dump($_GET['min']."-min, max-".$_GET['max']);
-
         if(!empty($_GET['min']))
             $requestParams['min'] = $_GET['min'];
 
@@ -54,11 +52,7 @@ class ProductController extends Controller
         if(!User::isAdmin())
             $requestParams['visible'] = 1;
 
-//        var_dump($requestParams);
-//        die;
-        $rows = ProductRequests::Select($requestParams);
-//        $rows = Product::search($searchString, User::isAdmin());
-
+        $rows = Requests::SelectProducts($requestParams);
         $products = Product::getOnePage($rows, $page, $countPerPage);
         $categories = DataTable::getItems('category');
         $brands = DataTable::getItems('brand');

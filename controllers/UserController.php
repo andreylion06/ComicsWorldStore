@@ -5,6 +5,7 @@ namespace controllers;
 
 use core\Controller;
 use core\Core;
+use dbrequests\Requests;
 use models\Order;
 use models\User;
 
@@ -93,5 +94,33 @@ class UserController extends Controller
         $orderId = intval($params[0]);
         Order::approve($orderId);
         $this->redirect("/user");
+    }
+
+
+    public function statisticsAction($params) {
+        if(!User::isUserAuthenticated())
+            $this->redirect('/user/login');
+
+        if (!User::isAdmin())
+            return $this->error(403);
+
+        $countOfUsers = Requests::GetCountOfUsers();
+        $countOfProducts = Requests::GetCountOfProducts();
+        $countOfOrdersToday = Requests::GetCountOfOrdersToday();
+
+        $salesInDays = Requests::GetSalesInLastDays(5);
+        $salesInDays = array_reverse($salesInDays);
+
+        $priceCategories = Requests::GetPriceCategories();
+        $breadthOfBrands = Requests::GetBreadthOfBrands();
+
+        return $this->render(null, [
+            'countOfUsers' => $countOfUsers,
+            'countOfProducts' => $countOfProducts,
+            'countOfOrdersToday' => $countOfOrdersToday,
+            'salesInDays' => $salesInDays,
+            'priceCategories' => $priceCategories,
+            'breadthOfBrands' => $breadthOfBrands
+        ]);
     }
 }
